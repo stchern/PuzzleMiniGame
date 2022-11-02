@@ -1,14 +1,17 @@
 #include <QCoreApplication>
-#include "PuzzleUnitTests/testPuzzle.h"
+#include "PuzzleUnitTests/testUtils.h"
+#include "PuzzleUnitTests/testInternalUtils.h"
 
 int main(int argc, char *argv[])
 {
     QCoreApplication a(argc, argv);
-    TestPuzzle test;
+    TestUtils testUtils;
+    TestInternalUtils testInternalUtils;
 
     QStringList args;
     args << "" << "-silent";
-    QTest::qExec(&test, args);
+    QTest::qExec(&testUtils, args);
+    QTest::qExec(&testInternalUtils, args);
 
     return 0;
 }

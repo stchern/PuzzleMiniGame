@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<!-- Written by QtCreator 6.0.2, 2022-11-02T14:11:00. -->
+<!-- Written by QtCreator 6.0.2, 2022-11-02T14:57:05. -->
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>
@@ -67,33 +67,7 @@
     <value type="bool" key="AutoTest.Framework.QtQuickTest">true</value>
     <value type="bool" key="AutoTest.Framework.QtTest">true</value>
    </valuemap>
-   <valuemap type="QVariantMap" key="AutoTest.CheckStates">
-    <value type="Qt::CheckState" key="1@/media/st/9ddc574e-9d8f-477d-a577-e299a71917a8/anastasia/LazyCoding/anastasia-chernyshova-r9PP-find-the-path-mini-game-2kwL/PuzzleUnitTests/testPuzzle.cpp:testAdjacencyMatrix01">Checked</value>
-    <value type="Qt::CheckState" key="1@/media/st/9ddc574e-9d8f-477d-a577-e299a71917a8/anastasia/LazyCoding/anastasia-chernyshova-r9PP-find-the-path-mini-game-2kwL/PuzzleUnitTests/testPuzzle.cpp:testAdjacencyMatrix02">Checked</value>
-    <value type="Qt::CheckState" key="1@/media/st/9ddc574e-9d8f-477d-a577-e299a71917a8/anastasia/LazyCoding/anastasia-chernyshova-r9PP-find-the-path-mini-game-2kwL/PuzzleUnitTests/testPuzzle.cpp:testAdjacencyMatrix03">Checked</value>
-    <value type="Qt::CheckState" key="1@/media/st/9ddc574e-9d8f-477d-a577-e299a71917a8/anastasia/LazyCoding/anastasia-chernyshova-r9PP-find-the-path-mini-game-2kwL/PuzzleUnitTests/testPuzzle.cpp:testBFSForMatrix01">Checked</value>
-    <value type="Qt::CheckState" key="1@/media/st/9ddc574e-9d8f-477d-a577-e299a71917a8/anastasia/LazyCoding/anastasia-chernyshova-r9PP-find-the-path-mini-game-2kwL/PuzzleUnitTests/testPuzzle.cpp:testBFSForMatrix02">Checked</value>
-    <value type="Qt::CheckState" key="1@/media/st/9ddc574e-9d8f-477d-a577-e299a71917a8/anastasia/LazyCoding/anastasia-chernyshova-r9PP-find-the-path-mini-game-2kwL/PuzzleUnitTests/testPuzzle.cpp:testBFSForMatrix03">Checked</value>
-    <value type="Qt::CheckState" key="1@/media/st/9ddc574e-9d8f-477d-a577-e299a71917a8/anastasia/LazyCoding/anastasia-chernyshova-r9PP-find-the-path-mini-game-2kwL/PuzzleUnitTests/testPuzzle.cpp:testBFSForMatrix04">Checked</value>
-    <value type="Qt::CheckState" key="1@/media/st/9ddc574e-9d8f-477d-a577-e299a71917a8/anastasia/LazyCoding/anastasia-chernyshova-r9PP-find-the-path-mini-game-2kwL/PuzzleUnitTests/testPuzzle.cpp:testBFSForMatrix05">Checked</value>
-    <value type="Qt::CheckState" key="1@/media/st/9ddc574e-9d8f-477d-a577-e299a71917a8/anastasia/LazyCoding/anastasia-chernyshova-r9PP-find-the-path-mini-game-2kwL/PuzzleUnitTests/testPuzzle.cpp:testBFSForMatrix06">Checked</value>
-    <value type="Qt::CheckState" key="1@/media/st/9ddc574e-9d8f-477d-a577-e299a71917a8/anastasia/LazyCoding/anastasia-chernyshova-r9PP-find-the-path-mini-game-2kwL/PuzzleUnitTests/testPuzzle.cpp:testBFSForMatrix07">Checked</value>
-    <value type="Qt::CheckState" key="1@/media/st/9ddc574e-9d8f-477d-a577-e299a71917a8/anastasia/LazyCoding/anastasia-chernyshova-r9PP-find-the-path-mini-game-2kwL/PuzzleUnitTests/testPuzzle.cpp:testDFSForMatrix01">Checked</value>
-    <value type="Qt::CheckState" key="1@/media/st/9ddc574e-9d8f-477d-a577-e299a71917a8/anastasia/LazyCoding/anastasia-chernyshova-r9PP-find-the-path-mini-game-2kwL/PuzzleUnitTests/testPuzzle.cpp:testDFSForMatrix02">Checked</value>
-    <value type="Qt::CheckState" key="1@/media/st/9ddc574e-9d8f-477d-a577-e299a71917a8/anastasia/LazyCoding/anastasia-chernyshova-r9PP-find-the-path-mini-game-2kwL/PuzzleUnitTests/testPuzzle.cpp:testDFSForMatrix03">Checked</value>
-    <value type="Qt::CheckState" key="1@/media/st/9ddc574e-9d8f-477d-a577-e299a71917a8/anastasia/LazyCoding/anastasia-chernyshova-r9PP-find-the-path-mini-game-2kwL/PuzzleUnitTests/testPuzzle.cpp:testDFSForMatrix04">Checked</value>
-    <value type="Qt::CheckState" key="1@/media/st/9ddc574e-9d8f-477d-a577-e299a71917a8/anastasia/LazyCoding/anastasia-chernyshova-r9PP-find-the-path-mini-game-2kwL/PuzzleUnitTests/testPuzzle.cpp:testDFSForMatrix05">Checked</value>
-    <value type="Qt::CheckState" key="1@/media/st/9ddc574e-9d8f-477d-a577-e299a71917a8/anastasia/LazyCoding/anastasia-chernyshova-r9PP-find-the-path-mini-game-2kwL/PuzzleUnitTests/testPuzzle.cpp:testDFSForMatrix06">Checked</value>
-    <value type="Qt::CheckState" key="1@/media/st/9ddc574e-9d8f-477d-a577-e299a71917a8/anastasia/LazyCoding/anastasia-chernyshova-r9PP-find-the-path-mini-game-2kwL/PuzzleUnitTests/testPuzzle.cpp:testDFSForMatrix07">Checked</value>
-    <value type="Qt::CheckState" key="1@/media/st/9ddc574e-9d8f-477d-a577-e299a71917a8/anastasia/LazyCoding/anastasia-chernyshova-r9PP-find-the-path-mini-game-2kwL/PuzzleUnitTests/testPuzzle.cpp:testDFSForMatrix08">Checked</value>
-    <value type="Qt::CheckState" key="1@/media/st/9ddc574e-9d8f-477d-a577-e299a71917a8/anastasia/LazyCoding/anastasia-chernyshova-r9PP-find-the-path-mini-game-2kwL/PuzzleUnitTests/testPuzzle.cpp:testDFSForMatrix09">Checked</value>
-    <value type="Qt::CheckState" key="1@/media/st/9ddc574e-9d8f-477d-a577-e299a71917a8/anastasia/LazyCoding/anastasia-chernyshova-r9PP-find-the-path-mini-game-2kwL/PuzzleUnitTests/testPuzzle.cpp:testIsFoundInRow01">Checked</value>
-    <value type="Qt::CheckState" key="1@/media/st/9ddc574e-9d8f-477d-a577-e299a71917a8/anastasia/LazyCoding/anastasia-chernyshova-r9PP-find-the-path-mini-game-2kwL/PuzzleUnitTests/testPuzzle.cpp:testIsFoundInRow02">Checked</value>
-    <value type="Qt::CheckState" key="1@/media/st/9ddc574e-9d8f-477d-a577-e299a71917a8/anastasia/LazyCoding/anastasia-chernyshova-r9PP-find-the-path-mini-game-2kwL/PuzzleUnitTests/testPuzzle.cpp:testIsFoundInRow03">Checked</value>
-    <value type="Qt::CheckState" key="1@/media/st/9ddc574e-9d8f-477d-a577-e299a71917a8/anastasia/LazyCoding/anastasia-chernyshova-r9PP-find-the-path-mini-game-2kwL/PuzzleUnitTests/testPuzzle.cpp:testIsFoundInRow04">Checked</value>
-    <value type="Qt::CheckState" key="1@/media/st/9ddc574e-9d8f-477d-a577-e299a71917a8/anastasia/LazyCoding/anastasia-chernyshova-r9PP-find-the-path-mini-game-2kwL/PuzzleUnitTests/testPuzzle.cpp:testfindAllPurePaths">Checked</value>
-    <value type="Qt::CheckState" key="1@/media/st/9ddc574e-9d8f-477d-a577-e299a71917a8/anastasia/LazyCoding/anastasia-chernyshova-r9PP-find-the-path-mini-game-2kwL/PuzzleUnitTests/testPuzzle.h:TestPuzzle">Checked</value>
-   </valuemap>
+   <valuemap type="QVariantMap" key="AutoTest.CheckStates"/>
    <value type="int" key="AutoTest.RunAfterBuild">0</value>
    <value type="bool" key="AutoTest.UseGlobal">true</value>
    <valuelist type="QVariantList" key="ClangCodeModel.CustomCommandLineKey"/>
@@ -264,8 +238,9 @@
     <valuelist type="QVariantList" key="CustomOutputParsers"/>
     <value type="int" key="PE.EnvironmentAspect.Base">2</value>
     <valuelist type="QVariantList" key="PE.EnvironmentAspect.Changes"/>
-    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">Qt4ProjectManager.Qt4RunConfiguration:/media/st/9ddc574e-9d8f-477d-a577-e299a71917a8/anastasia/LazyCoding/anastasia-chernyshova-r9PP-find-the-path-mini-game-2kwL/PuzzleRunUnitTests/PuzzleRunUnitTests.pro</value>
-    <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">/media/st/9ddc574e-9d8f-477d-a577-e299a71917a8/anastasia/LazyCoding/anastasia-chernyshova-r9PP-find-the-path-mini-game-2kwL/PuzzleRunUnitTests/PuzzleRunUnitTests.pro</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">PuzzleRunUnitTests2</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">Qt4ProjectManager.Qt4RunConfiguration:/media/st/9ddc574e-9d8f-477d-a577-e299a71917a8/anastasia/CPP/puzzle-mini-game/PuzzleRunUnitTests/PuzzleRunUnitTests.pro</value>
+    <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">/media/st/9ddc574e-9d8f-477d-a577-e299a71917a8/anastasia/CPP/puzzle-mini-game/PuzzleRunUnitTests/PuzzleRunUnitTests.pro</value>
     <value type="bool" key="RunConfiguration.UseCppDebugger">false</value>
     <value type="bool" key="RunConfiguration.UseCppDebuggerAuto">true</value>
     <value type="bool" key="RunConfiguration.UseLibrarySearchPath">true</value>
