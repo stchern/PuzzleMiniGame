@@ -1,9 +1,5 @@
-// ---------------------------------------------------------------------------------------------
-// PLEASE DO NOT MODIFY, RENAME OR REMOVE ANY OF CLASSES, METHODS AND VARIABLES BELOW.
-// YOU CAN ADD YOUR OWN METHODS AND VARIABLES TO THE EXISTING CLASSES AND USE THEM IN YOUR WORK.
-// ---------------------------------------------------------------------------------------------
-
-#pragma once
+#ifndef PATH_PUZZLE_H
+#define PATH_PUZZLE_H
 
 #include "Common.h"
 #include "Position.h"
@@ -20,9 +16,10 @@ public:
 
     friend std::ostream &operator<<(std::ostream &stream, const Path &path);
 
-    // You can add your own class members here.
     void push_back(const Position& position);
 
 private:
     std::vector<Position> m_positions;
 };
+
+#endif

@@ -1,9 +1,5 @@
-// ---------------------------------------------------------------------------------------------
-// PLEASE DO NOT MODIFY, RENAME OR REMOVE ANY OF CLASSES, METHODS AND VARIABLES BELOW.
-// YOU CAN ADD YOUR OWN METHODS AND VARIABLES TO THE EXISTING CLASSES AND USE THEM IN YOUR WORK.
-// ---------------------------------------------------------------------------------------------
-
-#pragma once
+#ifndef POSITION_PUZZLE_H
+#define POSITION_PUZZLE_H
 
 #include "Common.h"
 
@@ -19,7 +15,6 @@ public:
 
     friend std::ostream &operator<<(std::ostream &stream, const Position &position);
 
-    // You can add your own class members here.
     bool operator<(const Position &other) const;
     Position(): m_row(0), m_column(0) {};
 
@@ -27,3 +22,5 @@ private:
     int m_row;
     int m_column;
 };
+
+#endif
