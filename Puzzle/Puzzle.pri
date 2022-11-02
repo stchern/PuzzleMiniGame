@@ -14,7 +14,12 @@ SOURCES += \
         ../src/Position.cpp \
         ../src/Sequence.cpp \
         ../src/Utils.cpp \
-        ../src/InternalUtils.cpp
+        ../src/Search.cpp \
+        ../src/MatrixUtils.cpp \
+        ../src/PathUtils.cpp \
+        ../src/PositionUtils.cpp \
+        ../src/SequenceUtils.cpp \
+
 
 HEADERS += \
     ../src/Common.h \
@@ -26,4 +31,9 @@ HEADERS += \
     ../src/Position.h \
     ../src/Sequence.h \
     ../src/Utils.h \
-    ../src/InternalUtils.h
+    ../src/Search.h \
+    ../src/MatrixUtils.h \
+    ../src/PathUtils.h \
+    ../src/PositionUtils.h \
+    ../src/SequenceUtils.h
+
