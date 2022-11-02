@@ -1,6 +1,8 @@
 #include "src/Utils.h"
 #include "testUtils.h"
+#include "utils.h"
 
+using namespace UtilsUnitTests;
 
 void TestUtils::testAdjacencyMatrix01()
 {

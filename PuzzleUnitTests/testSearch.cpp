@@ -1,58 +1,11 @@
-#include "src/InternalUtils.h"
-#include "testInternalUtils.h"
+#include "testSearch.h"
+#include "src/Search.h"
+#include "utils.h"
 
-using namespace InternalUtils;
+using namespace Search;
+using namespace UtilsUnitTests;
 
-void TestInternalUtils::testIsFoundInRow01()
-{
-    std::vector<unsigned char> values{10, 20, 25, 255, 3, 3, 21, 3, 4, 5};
-    Matrix matrix(std::vector<std::vector<unsigned char>>{values});
-    std::vector<Position> positions;
-    isFoundInRow(matrix, Position(0, -1), 3, positions);
-    std::vector<Position> ansPositions{Position(0, 4), Position(0, 5), Position(0, 7)};
-
-    QVERIFY(isEqualsVector(positions, ansPositions));
-}
-
-void TestInternalUtils::testIsFoundInRow02()
-{
-    std::vector<unsigned char> values{10, 20, 25, 255, 3, 3, 21, 3, 4, 5};
-    Matrix matrix(std::vector<std::vector<unsigned char>>{values});
-    std::vector<Position> positions;
-    isFoundInRow(matrix, Position(0, -1), 3, positions);
-    std::vector<Position> ansPositions{Position(0, 4), Position(0, 5), Position(0, 7)};
-
-    QVERIFY(isEqualsVector(positions, ansPositions));
-}
-
-
-void TestInternalUtils::testIsFoundInRow03()
-{
-    const std::vector<std::vector<unsigned char>> values{{10, 20, 25, 25}, {5, 3, 3, 2}, {1, 3, 4, 5}};
-    Matrix matrix(values);
-    int row = 1;
-
-    std::vector<Position> positions;
-    isFoundInRow(matrix, Position(row, -1), 3, positions);
-    std::vector<Position> ansPositions{Position(row, 1), Position(row, 2)};
-
-    QVERIFY(isEqualsVector(positions, ansPositions));
-}
-
-void TestInternalUtils::testIsFoundInRow04()
-{
-    const std::vector<std::vector<unsigned char>> values{{10, 20, 25, 25}, {5, 3, 3, 2}, {1, 3, 4, 5}};
-    Matrix matrix(values);
-    int row = 2;
-    std::vector<Position> positions;
-    isFoundInRow(matrix, Position(row, -1), 5, positions);
-    std::vector<Position> ansPositions{Position(row, 3)};
-
-    QVERIFY(isEqualsVector(positions, ansPositions));
-}
-
-
-void TestInternalUtils::testDFSForMatrix01()
+void TestSearch::testDFS01()
 
 {
     int maxLengthPath = 10;
@@ -66,7 +19,7 @@ void TestInternalUtils::testDFSForMatrix01()
     QVERIFY(isEqualsVector(possiblePath, ansPossiblePath));
 }
 
-void TestInternalUtils::testDFSForMatrix02()
+void TestSearch::testDFS02()
 {
     int maxLengthPath = 10;
     const std::vector<std::vector<unsigned char>> values{{10, 20, 25, 25}, {5, 4, 3, 2}, {1, 3, 4, 5}};
@@ -79,7 +32,7 @@ void TestInternalUtils::testDFSForMatrix02()
     QVERIFY(isEqualsVector(possiblePath, ansPossiblePath));
 }
 
-void TestInternalUtils::testDFSForMatrix03()
+void TestSearch::testDFS03()
 {
     int maxLengthPath = 10;
     const std::vector<std::vector<unsigned char>> values{{2, 5, 5}, {4, 3, 2}};
@@ -93,7 +46,7 @@ void TestInternalUtils::testDFSForMatrix03()
 }
 
 
-void TestInternalUtils::testDFSForMatrix04()
+void TestSearch::testDFS04()
 {
     int maxLengthPath = 10;
     const std::vector<std::vector<unsigned char>> values{{10, 20, 25, 25}, {5, 4, 3, 2}, {1, 3, 4, 5}};
@@ -106,7 +59,7 @@ void TestInternalUtils::testDFSForMatrix04()
     QVERIFY(isEqualsVector(possiblePath, ansPossiblePath));
 }
 
-void TestInternalUtils::testDFSForMatrix05()
+void TestSearch::testDFS05()
 {
     int maxLengthPath = 10;
     const std::vector<std::vector<unsigned char>> values{{10, 20, 25, 25}, {5, 2, 3, 2}, {1, 5, 4, 5}};
@@ -122,7 +75,7 @@ void TestInternalUtils::testDFSForMatrix05()
     QVERIFY(isEqualsVector(possiblePath, ansPossiblePath));
 }
 
-void TestInternalUtils::testDFSForMatrix06()
+void TestSearch::testDFS06()
 {
     int maxLengthPath = 10;
     const std::vector<std::vector<unsigned char>> values{{10, 20, 25, 25}, {5, 2, 3, 2}, {1, 5, 4, 5}};
@@ -134,7 +87,7 @@ void TestInternalUtils::testDFSForMatrix06()
     QVERIFY(possiblePath.empty());
 }
 
-void TestInternalUtils::testDFSForMatrix07()
+void TestSearch::testDFS07()
 {
     int maxLengthPath = 10;
     const std::vector<std::vector<unsigned char>> values{{10, 20, 25, 25}, {5, 2, 3, 2}, {1, 5, 4, 5}};
@@ -146,7 +99,7 @@ void TestInternalUtils::testDFSForMatrix07()
     QVERIFY(possiblePath.empty());
 }
 
-void TestInternalUtils::testDFSForMatrix08()
+void TestSearch::testDFS08()
 {
     int maxLengthPath = 3;
     const std::vector<std::vector<unsigned char>> values{{10, 20, 25, 25}, {5, 4, 3, 2}, {1, 3, 4, 5}};
@@ -159,7 +112,7 @@ void TestInternalUtils::testDFSForMatrix08()
     QVERIFY(possiblePath.empty());
 }
 
-void TestInternalUtils::testDFSForMatrix09()
+void TestSearch::testDFS09()
 {
     int maxLengthPath = 10;
     const std::vector<std::vector<unsigned char>> values{{1, 20, 1}, {20, 6, 20}, {1, 20, 1}};
@@ -182,7 +135,7 @@ void TestInternalUtils::testDFSForMatrix09()
 }
 
 
-void TestInternalUtils::testBFSForMatrix01()
+void TestSearch::testBFS01()
 {
     const std::vector<std::vector<unsigned char>> values{{10, 20, 25, 25}, {5, 2, 3, 2}, {1, 5, 4, 5}};
     Matrix matrix(values);
@@ -198,7 +151,7 @@ void TestInternalUtils::testBFSForMatrix01()
 }
 
 
-void TestInternalUtils::testBFSForMatrix02()
+void TestSearch::testBFS02()
 {
     const std::vector<std::vector<unsigned char>> values{{10, 20, 25, 25}, {5, 3, 3, 2}, {1, 3, 4, 5}};
     Matrix matrix(values);
@@ -215,7 +168,7 @@ void TestInternalUtils::testBFSForMatrix02()
     QVERIFY(isEqualsVector(possiblePath, ansPossiblePath));
 }
 
-void TestInternalUtils::testBFSForMatrix03()
+void TestSearch::testBFS03()
 {
     const std::vector<std::vector<unsigned char>> values{{10, 20, 25, 25}, {5, 2, 3, 2}, {1, 5, 4, 5}};
     Matrix matrix(values);
@@ -228,7 +181,7 @@ void TestInternalUtils::testBFSForMatrix03()
     QVERIFY(possiblePath.empty());
 }
 
-void TestInternalUtils::testBFSForMatrix04()
+void TestSearch::testBFS04()
 {
     const std::vector<std::vector<unsigned char>> values{{10, 20, 25, 25}, {5, 3, 3, 2}, {1, 3, 4, 5}};
     Matrix matrix(values);
@@ -244,7 +197,7 @@ void TestInternalUtils::testBFSForMatrix04()
     QVERIFY(isEqualsVector(possiblePath, ansPossiblePath));
 }
 
-void TestInternalUtils::testBFSForMatrix05()
+void TestSearch::testBFS05()
 {
     const std::vector<std::vector<unsigned char>> values{{10, 20, 25, 25}, {5, 3, 3, 2}, {1, 3, 4, 5}};
     Matrix matrix(values);
@@ -260,7 +213,7 @@ void TestInternalUtils::testBFSForMatrix05()
     QVERIFY(isEqualsVector(possiblePath, ansPossiblePath));
 }
 
-void TestInternalUtils::testBFSForMatrix06()
+void TestSearch::testBFS06()
 {
     const std::vector<std::vector<unsigned char>> values{ {10, 20, 25, 25} ,{10, 20, 25, 25}, {5, 3, 3, 2}, {1, 3, 4, 5}};
     Matrix matrix(values);
@@ -278,7 +231,7 @@ void TestInternalUtils::testBFSForMatrix06()
 }
 
 
-void TestInternalUtils::testBFSForMatrix07()
+void TestSearch::testBFS07()
 {
     const std::vector<std::vector<unsigned char>> values{{0, 10, 20, 25, 25}, {0, 5, 3, 3, 2}, {0, 1, 3, 4, 5}};
     Matrix matrix(values);
@@ -295,4 +248,3 @@ void TestInternalUtils::testBFSForMatrix07()
 
     QVERIFY(isEqualsVector(possiblePath, ansPossiblePath));
 }
-

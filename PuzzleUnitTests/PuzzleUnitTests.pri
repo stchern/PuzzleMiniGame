@@ -6,11 +6,18 @@ INCLUDEPATH *= $$clean_path($$PWD/../)
 include($$PWD/../Puzzle/Puzzle.pri)
 
 HEADERS += \
-    $$PWD/testInternalUtils.h \
+    $$PWD/testMatrixUtils.h \
     $$PWD/testUtils.h \
 
 
 SOURCES += \
-    $$PWD/testInternalUtils.cpp \
+    $$PWD/testMatrixUtils.cpp \
     $$PWD/testUtils.cpp \
 }
+
+HEADERS += \
+    $$PWD/testSearch.h \
+    $$PWD/utils.h
+
+SOURCES += \
+    $$PWD/testSearch.cpp
