@@ -1,14 +1,14 @@
-#ifndef PUZZLE_TEST_H
-#define PUZZLE_TEST_H
+#ifndef INTERNAL_UTILS_TEST_H
+#define INTERNAL_UTILS_TEST_H
 
 #include <QTest>
 
-class TestPuzzle: public QObject{
+class TestInternalUtils: public QObject{
 
     Q_OBJECT
 public:
 
-    explicit TestPuzzle(QObject *parent = 0): QObject(parent){
+    explicit TestInternalUtils(QObject *parent = 0): QObject(parent){
     };
 
 private:
@@ -43,10 +43,7 @@ private slots:
     void testIsFoundInRow02();
     void testIsFoundInRow03();
     void testIsFoundInRow04();
-    void testAdjacencyMatrix01();
-    void testAdjacencyMatrix02();
-    void testAdjacencyMatrix03();
-    void testfindAllPurePaths();
+
     void testDFSForMatrix01();
     void testDFSForMatrix02();
     void testDFSForMatrix03();
@@ -69,4 +66,4 @@ private slots:
 
 };
 
-#endif //INPAINTING_TEST_H
+#endif
