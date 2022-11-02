@@ -1,10 +1,5 @@
-// ---------------------------------------------------------------------------------------------
-// PLEASE DO NOT MODIFY, RENAME OR REMOVE ANY OF CLASSES, METHODS AND VARIABLES BELOW
-// EXCEPT PATHFINDER::RUN() METHOD THAT YOU NEED TO IMPLEMENT.
-// YOU CAN ADD YOUR OWN METHODS AND VARIABLES TO THE EXISTING CLASSES AND USE THEM IN YOUR WORK.
-// ---------------------------------------------------------------------------------------------
-
-#pragma once
+#ifndef PATH_FINDER_PUZZLE_H
+#define PATH_FINDER_PUZZLE_H
 
 #include "Common.h"
 #include "Matrix.h"
@@ -18,10 +13,11 @@ public:
 
     Path run();
 
-    // You can add your own class members here.
 
 private:
     Matrix m_matrix;
     std::vector<Sequence> m_sequences;
     int m_maxPathLength;
 };
+
+#endif
