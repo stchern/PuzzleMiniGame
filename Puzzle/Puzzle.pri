@@ -13,7 +13,8 @@ SOURCES += \
         ../src/PathFinder.cpp \
         ../src/Position.cpp \
         ../src/Sequence.cpp \
-        ../src/Utils.cpp
+        ../src/Utils.cpp \
+        ../src/InternalUtils.cpp
 
 HEADERS += \
     ../src/Common.h \
@@ -25,3 +26,4 @@ HEADERS += \
     ../src/Position.h \
     ../src/Sequence.h \
     ../src/Utils.h \
+    ../src/InternalUtils.h
