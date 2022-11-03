@@ -16,8 +16,14 @@ SOURCES += \
 }
 
 HEADERS += \
+    $$PWD/testPathUtils.h \
+    $$PWD/testPositionUtils.h \
     $$PWD/testSearch.h \
+    $$PWD/testSequenceUtils.h \
     $$PWD/utils.h
 
 SOURCES += \
-    $$PWD/testSearch.cpp
+    $$PWD/testPathUtils.cpp \
+    $$PWD/testPositionUtils.cpp \
+    $$PWD/testSearch.cpp \
+    $$PWD/testSequenceUtils.cpp
