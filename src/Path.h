@@ -11,7 +11,7 @@ public:
     Path(const std::vector<Position> &positions);
 
     const std::vector<Position> &positions() const;
-
+    size_t length() const;
     bool operator==(const Path &other) const;
 
     friend std::ostream &operator<<(std::ostream &stream, const Path &path);

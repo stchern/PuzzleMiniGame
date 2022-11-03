@@ -19,6 +19,11 @@ const std::vector<Position> &Path::positions() const
     return m_positions;
 }
 
+size_t Path::length() const
+{
+    return m_positions.size();
+}
+
 bool Path::operator==(const Path &other) const
 {
     return m_positions == other.m_positions;
