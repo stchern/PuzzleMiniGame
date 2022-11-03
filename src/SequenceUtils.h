@@ -18,6 +18,7 @@ bool isPossibleAddWastedMovesBeforeFirstSequences(const Path& path, int maxColum
 
 bool addOneWastedMoveBeforeFirstSequence(const Path& path, Path& outPath);
 bool addTwoWastedMovesBeforeFirstSequence(const Path& path, int maxColumnCount, Path& outPath);
+bool hasOverlapping(const Sequence& rhsSeq, const Sequence& lhsSeq, size_t& overlapLength);
 
 }
 }

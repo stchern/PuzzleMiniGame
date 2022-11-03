@@ -158,3 +158,29 @@ bool InternalUtils::USequence::addTwoWastedMovesBeforeFirstSequence(const Path& 
         }
     return false;
 }
+
+bool InternalUtils::USequence::hasOverlapping(const Sequence& rhsSeq, const Sequence& lhsSeq, size_t& overlapLength)
+{
+    overlapLength = 0;
+    auto beginIt = std::begin(lhsSeq.codes());
+    auto endIt = std::end(lhsSeq.codes());
+
+    while (endIt != beginIt) {
+
+        if (endIt - beginIt == 1)
+            if (*beginIt == *(--std::end(rhsSeq.codes()))) {
+                overlapLength = 1;
+                return true;
+            }
+
+        auto it = std::search(std::begin(rhsSeq.codes()), std::end(rhsSeq.codes()), std::begin(lhsSeq.codes()), endIt);
+        if (it != std::end(rhsSeq.codes()))
+            if (endIt == std::end(lhsSeq.codes()) || it + (endIt - beginIt) == std::end(rhsSeq.codes())) {
+                overlapLength = endIt - beginIt;
+                return true;
+            }
+
+        --endIt;
+    }
+    return false;
+}
