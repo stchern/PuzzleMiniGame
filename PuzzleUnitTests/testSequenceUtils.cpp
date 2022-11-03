@@ -358,7 +358,8 @@ void TestSequenceUtils::testIsPossibleAddWastedMovesBetweenSequences01()
     bool value = isPossibleAddWastedMovesBetweenSequences(rhsPath, lhsPath, matrix, maxLengthPath, outPaths);
     std::vector<Path> ansPaths = {
          Path({
-            Position(0, 1), Position(2, 1), Position(2, 0), Position(1, 0), Position(1, 2), Position(2, 2), Position(2, 3), Position(0, 3)
+            Position(0, 1), Position(2, 1), Position(2, 0), Position(1, 0),
+            Position(1, 2), Position(2, 2), Position(2, 3), Position(0, 3)
         }),
     };
 
@@ -383,7 +384,8 @@ void TestSequenceUtils::testIsPossibleAddWastedMovesBetweenSequences02()
     bool value = isPossibleAddWastedMovesBetweenSequences(rhsPath, lhsPath, matrix, maxLengthPath, outPaths);
     std::vector<Path> ansPaths = {
          Path({
-            Position(0, 1), Position(2, 1), Position(2, 0), Position(1, 0), Position(1, 2), Position(2, 2), Position(2, 3), Position(0, 3)
+            Position(0, 1), Position(2, 1), Position(2, 0), Position(1, 0),
+            Position(1, 2), Position(2, 2), Position(2, 3), Position(0, 3)
         }),
     };
 
@@ -396,10 +398,10 @@ void TestSequenceUtils::testIsPossibleAddWastedMovesBetweenSequences03()
     const std::vector<std::vector<unsigned char>> values{{10, 20, 25, 25}, {5, 3, 3, 2}, {1, 3, 4, 5}};
     Matrix matrix(values);
     const Path rhsPath({
-                        Position(0, 1), Position(2, 1), Position(2, 0), Position(1, 0)
+                        Position(0, 1), Position(2, 1), Position(2, 0), Position(1, 0)  // 20  3 1 5
                        });
     const Path lhsPath({
-                        Position(2, 3), Position(0, 3)
+                        Position(2, 3), Position(0, 3)  //5 25
                        });
     const size_t maxLengthPath = 10;
     std::vector<Path> outPaths;
@@ -407,7 +409,8 @@ void TestSequenceUtils::testIsPossibleAddWastedMovesBetweenSequences03()
     bool value = isPossibleAddWastedMovesBetweenSequences(rhsPath, lhsPath, matrix, maxLengthPath, outPaths);
     std::vector<Path> ansPaths = {
          Path({
-            Position(0, 1), Position(2, 1), Position(2, 0), Position(1, 0), Position(1, 2), Position(2, 2), Position(2, 3), Position(0, 3)
+            Position(0, 1), Position(2, 1), Position(2, 0), Position(1, 0),
+            Position(1, 2), Position(2, 2), Position(2, 3), Position(0, 3)
         })
     };
 
