@@ -73,29 +73,43 @@ bool InternalUtils::UPosition::isFoundNextPositionsInColsAndRowsByValue(
 }
 
 
-bool InternalUtils::UPosition::isFoundNotVisitedPositionInRow(const std::vector<Position>& row, const Position& currPosition, const std::vector<bool>& isVisitedCol, int maxColumnCount, int& notVisitedCol)
+//bool InternalUtils::UPosition::isFoundNotVisitedPositionInRow(const std::vector<Position>& row, const Position& currPosition, const std::vector<bool>& isVisitedCol, int maxColumnCount, int& notVisitedCol)
+//{
+//    size_t currentRow = currPosition.row();
+//    size_t currentCol = currPosition.column();
+//    for (size_t col = 0; col < maxColumnCount; ++col)
+//        if (col != currentCol && !isVisitedCol[col]) {
+//            auto it = std::find(std::begin(row), std::end(row), Position(currentRow, col));
+//            if (it != std::end(row)) {
+//                notVisitedCol = col;
+//                return true;
+//            }
+//        }
+//    return false;
+//}
+
+bool InternalUtils::UPosition::isPositionInPath(const std::vector<Position>& pathPositions, const Position& position)
 {
-    size_t currentRow = currPosition.row();
-    size_t currentCol = currPosition.column();
-    for (size_t col = 0; col < maxColumnCount; ++col)
-        if (col != currentCol && !isVisitedCol[col]) {
-            auto it = std::find(std::begin(row), std::end(row), Position(currentRow, col));
-            if (it != std::end(row)) {
-                notVisitedCol = col;
-                return true;
-            }
-        }
+    auto it = std::find(std::begin(pathPositions), std::end(pathPositions), position);
+    if (it != std::end(pathPositions))
+        return true;
+
     return false;
 }
 
-bool InternalUtils::UPosition::isPositionIsAnyPaths(const Path& rhsPath, const Path& lhsPath, const Position& position)
+bool InternalUtils::UPosition::isFoundTwoPositionsForWastedMoves(const std::vector<Position>& positions, const Position& currPosition, const int maxColumnCount, Path& outPathOfTwoPositions)
 {
-    auto it = std::find(std::begin(rhsPath.positions()), std::end(rhsPath.positions()), position);
-    if (it != std::end(rhsPath.positions()))
-        return true;
+    size_t currCol = currPosition.column();
+    size_t currRow = currPosition.row();
+    for (size_t col = 0; col < maxColumnCount; ++col)
+        if (col != currCol) {
+            Position positionInSameRow(currRow, col);
+            Position positionInFirstRow(0, col);
+            if (!isPositionInPath(positions, positionInFirstRow) && !isPositionInPath(positions, positionInSameRow)) {
+                outPathOfTwoPositions = Path({positionInFirstRow, positionInSameRow});
+                return true;
+            }
+        }
 
-    it = std::find(std::begin(lhsPath.positions()), std::end(lhsPath.positions()), position);
-    if (it != std::end(lhsPath.positions()))
-        return true;
     return false;
 }
