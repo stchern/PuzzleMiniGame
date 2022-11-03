@@ -45,23 +45,22 @@ std::vector<std::vector<std::pair<Path, int>>> Utils::combinePurePaths(
         const std::vector<std::vector<Path>>& purePaths,
         const Matrix& matrix,
         const std::vector<Sequence>& sequences,
-        size_t maxLengthPath)
+        const size_t maxLengthPath)
 {
     std::vector<bool> isVisitedSequence(purePaths.size(), false);
     std::vector<std::vector<std::pair<Path, int>>> possiblePathsAndScore(purePaths.size());
 
     for (size_t currSeqIdx = 0; currSeqIdx < purePaths.size(); ++currSeqIdx) {
         isVisitedSequence[currSeqIdx] = true;
-        Sequence currSequence = sequences[currSeqIdx];
         std::vector<Path> possiblePathsForCurrSeq(purePaths[currSeqIdx].size());
         for (size_t pathIdx = 0; pathIdx < purePaths[currSeqIdx].size(); ++pathIdx) {
             Path currPath;
             if (InternalUtils::USequence::isPossibleAddWastedMovesBeforeFirstSequences(purePaths[currSeqIdx][pathIdx], matrix.columnCount(), maxLengthPath, currPath)) {
                 std::vector<std::pair<Path, int>> possiblePathsForCurrent = InternalUtils::UPath::combinePurePath(
                             purePaths, currPath,
-                            currSequence,
-                            isVisitedSequence, sequences, matrix,
-                            maxLengthPath, sequences[currSeqIdx].score());
+                            sequences, matrix,
+                            maxLengthPath, sequences[currSeqIdx].score(),
+                            isVisitedSequence);
                 possiblePathsAndScore.push_back(possiblePathsForCurrent);
             }
         }
