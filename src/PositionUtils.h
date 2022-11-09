@@ -11,13 +11,8 @@ namespace InternalUtils {
 
 namespace UPosition {
 
-//bool isFoundNotVisitedPositionInRow(
-//        const std::vector<Position>& row,
-//        const Position& currPosition,
-//        const std::vector<bool>& isVisitedCol,
-//        int maxColumnCount, int& notVisitedCol);
 bool isPositionInPath(const std::vector<Position>& pathPositions, const Position& position);
-bool isFoundNextPositionsInColsAndRowsByPosition(
+void nextPositionsInColsOrRows(
         const Matrix& matrix,
         const std::pair<Position, Path>& startPositionAndPath,
         const Position& positionToFound,
@@ -25,6 +20,7 @@ bool isFoundNextPositionsInColsAndRowsByPosition(
         bool isStartFromCol = false);
 bool isFoundInRowByPosition(const Matrix& matrix,  const Position& startPosition,  const Position& positionToFound, std::vector<Position>& outVector);
 bool isFoundInColByPosition(const Matrix& matrix,  const Position& startPosition,  const Position& positionToFound, std::vector<Position>& outVector);
+
 bool isFoundNextPositionsInColsAndRowsByValue(
         const Matrix& matrix,
         const std::pair<Position, Path>& startPositionAndPath,

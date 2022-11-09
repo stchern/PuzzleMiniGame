@@ -56,11 +56,12 @@ std::vector<std::vector<std::pair<Path, int>>> Utils::combinePurePaths(
         for (size_t pathIdx = 0; pathIdx < purePaths[currSeqIdx].size(); ++pathIdx) {
             Path currPath;
             if (InternalUtils::USequence::isPossibleAddWastedMovesBeforeFirstSequences(purePaths[currSeqIdx][pathIdx], matrix.columnCount(), maxLengthPath, currPath)) {
-                std::vector<std::pair<Path, int>> possiblePathsForCurrent = InternalUtils::UPath::combinePurePath(
+                std::vector<std::pair<Path, int>> possiblePathsForCurrent;
+                InternalUtils::UPath::combinePurePath(
                             purePaths, currPath,
                             sequences, matrix,
                             maxLengthPath, sequences[currSeqIdx].score(),
-                            isVisitedSequence);
+                            isVisitedSequence, possiblePathsForCurrent);
                 possiblePathsAndScore.push_back(possiblePathsForCurrent);
             }
         }

@@ -1,11 +1,11 @@
 #include "PositionUtils.h"
 #include "MatrixUtils.h"
 
-bool InternalUtils::UPosition::isFoundNextPositionsInColsAndRowsByPosition(
+void InternalUtils::UPosition::nextPositionsInColsOrRows(
         const Matrix& matrix,
         const std::pair<Position, Path>& startPositionAndPath,
         const Position& positionToFound,
-        std::queue<std::pair<Position, Path>>& stack,
+        std::queue<std::pair<Position, Path>>& queue,
         bool isStartFromCol)
 {
 
@@ -16,14 +16,14 @@ bool InternalUtils::UPosition::isFoundNextPositionsInColsAndRowsByPosition(
         if (currCol == positionToFound.column()) {
             Path newPath = startPositionAndPath.second;
             newPath.push_back(positionToFound);
-            stack.push(std::make_pair(positionToFound, newPath));
+            queue.push(std::make_pair(positionToFound, newPath));
         }
         else  {
             for (size_t row = 0; row < matrix.rowCount(); ++row)
                 if (row != currRow) {
                     Path newPath = startPositionAndPath.second;
                     newPath.push_back(Position(row, currCol));
-                    stack.push(std::make_pair(Position(row, currCol), newPath));
+                    queue.push(std::make_pair(Position(row, currCol), newPath));
                 }
         }
 
@@ -32,14 +32,14 @@ bool InternalUtils::UPosition::isFoundNextPositionsInColsAndRowsByPosition(
         if (currRow == positionToFound.row()) {
             Path newPath = startPositionAndPath.second;
             newPath.push_back(positionToFound);
-            stack.push(std::make_pair(positionToFound, newPath));
+            queue.push(std::make_pair(positionToFound, newPath));
         }
         else {
             for (size_t col = 0; col < matrix.columnCount(); ++col)
                 if (col != currCol) {
                     Path newPath = startPositionAndPath.second;
                     newPath.push_back(Position(currRow, col));
-                    stack.push(std::make_pair(Position(currRow, col), newPath));
+                    queue.push(std::make_pair(Position(currRow, col), newPath));
                 }
         }
 
@@ -71,22 +71,6 @@ bool InternalUtils::UPosition::isFoundNextPositionsInColsAndRowsByValue(
     return isFound;
 
 }
-
-
-//bool InternalUtils::UPosition::isFoundNotVisitedPositionInRow(const std::vector<Position>& row, const Position& currPosition, const std::vector<bool>& isVisitedCol, int maxColumnCount, int& notVisitedCol)
-//{
-//    size_t currentRow = currPosition.row();
-//    size_t currentCol = currPosition.column();
-//    for (size_t col = 0; col < maxColumnCount; ++col)
-//        if (col != currentCol && !isVisitedCol[col]) {
-//            auto it = std::find(std::begin(row), std::end(row), Position(currentRow, col));
-//            if (it != std::end(row)) {
-//                notVisitedCol = col;
-//                return true;
-//            }
-//        }
-//    return false;
-//}
 
 bool InternalUtils::UPosition::isPositionInPath(const std::vector<Position>& pathPositions, const Position& position)
 {
