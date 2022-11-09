@@ -1,5 +1,6 @@
 #include "Search.h"
-#include "InternalUtils.h"
+#include "PositionUtils.h"
+#include "MatrixUtils.h"
 #include <stack>
 #include <queue>
 
@@ -72,7 +73,7 @@ std::vector<Path> Search::BFS(
     Path currPath({endPositionCurrSeq});
     queue.push(std::make_pair( endPositionCurrSeq, currPath));
 
-    InternalUtils::UPosition::isFoundNextPositionsInColsAndRowsByPosition(matrix, std::make_pair(endPositionCurrSeq, currPath), startPositionNextSeq, queue, isStartFromCol);
+    InternalUtils::UPosition::nextPositionsInColsOrRows(matrix, std::make_pair(endPositionCurrSeq, currPath), startPositionNextSeq, queue, isStartFromCol);
     queue.pop();
 
     while (!queue.empty()) {
@@ -105,7 +106,7 @@ std::vector<Path> Search::BFS(
         }
 
         isStartFromCol = !(currPosition.row() - possiblePath.positions()[possiblePath.positions().size() - 2].row());
-        InternalUtils::UPosition::isFoundNextPositionsInColsAndRowsByPosition(matrix, positionAndPath, startPositionNextSeq, queue, isStartFromCol);
+        InternalUtils::UPosition::nextPositionsInColsOrRows(matrix, positionAndPath, startPositionNextSeq, queue, isStartFromCol);
     }
 
     return possiblePaths;
