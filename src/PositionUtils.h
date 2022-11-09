@@ -18,8 +18,6 @@ void nextPositionsInColsOrRows(
         const Position& positionToFound,
         std::queue<std::pair<Position, Path>>& queue,
         bool isStartFromCol = false);
-bool isFoundInRowByPosition(const Matrix& matrix,  const Position& startPosition,  const Position& positionToFound, std::vector<Position>& outVector);
-bool isFoundInColByPosition(const Matrix& matrix,  const Position& startPosition,  const Position& positionToFound, std::vector<Position>& outVector);
 
 bool isFoundNextPositionsInColsAndRowsByValue(
         const Matrix& matrix,
