@@ -15,16 +15,21 @@ public:
 private slots:
 
     void testIsPositionInPath01();
+    void testIsPositionInPath02();
 
     void testIsFoundNextPositionsInColsAndRowsByPosition01();
-
-    void testIsFoundInRowByPosition01();
-
-    void testIsFoundInColByPosition01();
+    void testIsFoundNextPositionsInColsAndRowsByPosition02();
+    void testIsFoundNextPositionsInColsAndRowsByPosition03();
+    void testIsFoundNextPositionsInColsAndRowsByPosition04();
 
     void testIsFoundNextPositionsInColsAndRowsByValue01();
+    void testIsFoundNextPositionsInColsAndRowsByValue02();
+    void testIsFoundNextPositionsInColsAndRowsByValue03();
+    void testIsFoundNextPositionsInColsAndRowsByValue04();
 
     void testIsFoundTwoPositionsForWastedMoves01();
+    void testIsFoundTwoPositionsForWastedMoves02();
+    void testIsFoundTwoPositionsForWastedMoves03();
 
 };
 
