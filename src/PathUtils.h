@@ -11,12 +11,12 @@ namespace InternalUtils {
 namespace UPath
 {
 
-std::vector<std::pair<Path, int>> combinePurePath(
+void combinePurePath(
         const std::vector<std::vector<Path>>& purePaths,
         const Path& currPath,
         const std::vector<Sequence>& sequences,
         const Matrix& matrix, size_t maxLengthPath, int score,
-        std::vector<bool>& isVisitedSequence);
+        std::vector<bool>& isVisitedSequence, std::vector<std::pair<Path, int>>& possiblePathsAndScore);
 
 Path concatenatePaths(const Path& rhsPath, const Path& lhsPath);
 bool isCreatedPathsAfterCurrent(

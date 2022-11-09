@@ -2,15 +2,15 @@
 #include "SequenceUtils.h"
 
 
-std::vector<std::pair<Path, int>> InternalUtils::UPath::combinePurePath(
+void InternalUtils::UPath::combinePurePath(
         const std::vector<std::vector<Path>>& purePaths,
         const Path& currPath,
         const std::vector<Sequence>& sequences,
         const Matrix& matrix, size_t maxLengthPath, int score,
-        std::vector<bool>& outIsVisitedSequence)
+        std::vector<bool>& outIsVisitedSequence, std::vector<std::pair<Path, int>>& possiblePathsAndScore)
 {
     int currScore = score;
-    std::vector<std::pair<Path, int>> possiblePathsAndScore;
+//    std::vector<std::pair<Path, int>> possiblePathsAndScore;
 
     for (size_t seqIdx = 0; seqIdx < purePaths.size(); ++seqIdx) {
         if (outIsVisitedSequence[seqIdx])
@@ -19,23 +19,23 @@ std::vector<std::pair<Path, int>> InternalUtils::UPath::combinePurePath(
         int nextScore = sequences[seqIdx].score();
         for (size_t pathIdx = 0; pathIdx < purePaths[seqIdx].size(); ++pathIdx) {
             std::vector<Path> resultPaths;
-              if (isCreatedPathsAfterCurrent(currPath, purePaths[seqIdx][pathIdx], matrix, maxLengthPath, resultPaths)) {
+            if (isCreatedPathsAfterCurrent(currPath, purePaths[seqIdx][pathIdx], matrix, maxLengthPath, resultPaths)) {
 
                 for (const Path& path: resultPaths) {
                     possiblePathsAndScore.push_back(std::pair(path, currScore + nextScore));
-                    std::vector<std::pair<Path, int>> currPathAndScore = combinePurePath(
+                    combinePurePath(
                                 purePaths, path,
                                 sequences, matrix,
                                 maxLengthPath, currScore + nextScore,
-                                outIsVisitedSequence);
+                                outIsVisitedSequence, possiblePathsAndScore);
                 }
             }
-
         }
+
         outIsVisitedSequence[seqIdx] = false;
+
     }
 
-    return possiblePathsAndScore;
 }
 
 
@@ -57,8 +57,11 @@ bool InternalUtils::UPath::isCreatedPathsAfterCurrent(
 
     if (InternalUtils::USequence::hasOverlapping(currSequence, nextSequence, overlapLength)) {
         Path partOfNextPathForConcatenation(std::vector<Position>(std::begin(nextPath.positions()) + overlapLength, std::end(nextPath.positions())));
-        outPaths.push_back(concatenatePaths(currPath, partOfNextPathForConcatenation));
-        return true;
+        if (currPath.positions()[currPath.positions().size() - 1].row() == partOfNextPathForConcatenation.positions()[0].row() ||
+                currPath.positions()[currPath.positions().size() - 1].column() == partOfNextPathForConcatenation.positions()[0].column()) {
+            outPaths.push_back(concatenatePaths(currPath, partOfNextPathForConcatenation));
+            return true;
+        }
     }
     if (InternalUtils::USequence::isPossibleAddWastedMovesBetweenSequences(currPath, nextPath, matrix, maxLengthPath, outPaths))
         return true;
