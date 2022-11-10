@@ -25,6 +25,11 @@ private slots:
     void testIsCreatedPathsAfterCurrent04();
     void testIsCreatedPathsAfterCurrent05();
 
+    void testHasOverlapping01();
+    void testHasOverlapping02();
+    void testHasOverlapping03();
+    void testHasOverlapping04();
+
     void testHasIntersection01();
     void testHasIntersection02();
     void testHasIntersection03();
@@ -32,6 +37,7 @@ private slots:
     void testHasIntersection05();
     void testHasIntersection06();
     void testHasIntersection07();
+    void testHasIntersection08();
 
     void testConcatenatePath01();
     void testConcatenatePath02();

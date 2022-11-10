@@ -307,21 +307,21 @@ void TestPathUtils::testHasIntersection01()
                            Position(1, 2), Position(2, 2), Position(2, 3), Position(0, 3)
                        });
 
-    bool value = hasIntersection(rhsPath, lhsPath);
+    bool value = hasIntersection(lhsPath, rhsPath);
 
     QVERIFY(!value);
 }
 
 void TestPathUtils::testHasIntersection02()
 {
-    const Path rhsPath({
+    const Path lhsPath({
                            Position(0, 1), Position(2, 1), Position(2, 0)
                        });
-    const Path lhsPath({
+    const Path rhsPath({
                            Position(2, 1), Position(2, 0), Position(2, 3), Position(0, 3)
                        });
 
-    bool value = hasIntersection(rhsPath, lhsPath);
+    bool value = hasIntersection(lhsPath, rhsPath);
 
     QVERIFY(!value);
 }
@@ -335,7 +335,7 @@ void TestPathUtils::testHasIntersection03()
                            Position(2, 1), Position(3, 1), Position(2, 3), Position(0, 3)
                        });
 
-    bool value = hasIntersection(rhsPath, lhsPath);
+    bool value = hasIntersection(lhsPath, rhsPath);
 
     QVERIFY(value);
 }
@@ -349,7 +349,7 @@ void TestPathUtils::testHasIntersection04()
                            Position(2, 0), Position(2, 1), Position(2, 3), Position(0, 3)
                        });
 
-    bool value = hasIntersection(rhsPath, lhsPath);
+    bool value = hasIntersection(lhsPath, rhsPath);
 
     QVERIFY(value);
 }
@@ -363,7 +363,7 @@ void TestPathUtils::testHasIntersection05()
                            Position(2, 0), Position(2, 1), Position(0, 1), Position(0, 3)
                        });
 
-    bool value = hasIntersection(rhsPath, lhsPath);
+    bool value = hasIntersection(lhsPath, rhsPath);
 
     QVERIFY(value);
 }
@@ -377,12 +377,10 @@ void TestPathUtils::testHasIntersection06()
     const Path lhsPath({
                     Position(2, 0), Position(1, 0), Position(2, 1), Position(0, 3)
                    });
-    bool value = hasIntersection(rhsPath, lhsPath);
+    bool value = hasIntersection(lhsPath, rhsPath);
 
     QVERIFY(value);
 }
-
-
 
 void TestPathUtils::testHasIntersection07()
 {
@@ -393,10 +391,84 @@ void TestPathUtils::testHasIntersection07()
     const Path lhsPath({
                     Path({Position(1, 3), Position(2, 3)})
                    });
-    bool value = hasIntersection(rhsPath, lhsPath);
+    bool value = hasIntersection(lhsPath, rhsPath);
 
     QVERIFY(!value);
 }
+
+
+void TestPathUtils::testHasIntersection08()
+{
+    const Path lhsPath({
+                    Path({Position(2, 1), Position(2, 0), Position(1, 0), Position(1, 2)})
+                   });
+    const Path rhsPath({
+                    Path({Position(0, 1), Position(2, 1), Position(2, 0), Position(1, 0)})
+                   });
+    bool value = hasIntersection(lhsPath, rhsPath);
+
+    QVERIFY(value);
+}
+
+void TestPathUtils::testHasOverlapping01()
+{
+    const Path rhsPath({
+                    Path({Position(0, 1), Position(2, 1), Position(2, 0), Position(1, 0)})
+                   });
+    const Path lhsPath({
+                    Path({Position(1, 3), Position(2, 3), Position(2, 2), Position(1, 2)})
+                   });
+    size_t overlapLength;
+    bool value = hasOverlapping(lhsPath, rhsPath, overlapLength);
+
+    QVERIFY(!value);
+}
+
+void TestPathUtils::testHasOverlapping02()
+{
+    const Path rhsPath({
+                           Position(0, 1), Position(2, 1), Position(2, 3)
+                       });
+    const Path lhsPath({
+                           Position(2, 0), Position(2, 1), Position(0, 1), Position(0, 3)
+                       });
+
+    size_t overlapLength;
+    bool value = hasOverlapping(rhsPath, lhsPath, overlapLength);
+
+    QVERIFY(!value);
+}
+
+void TestPathUtils::testHasOverlapping03()
+{
+    const Path lhsPath({
+                    Path({Position(0, 1), Position(2, 1), Position(2, 0), Position(1, 0)})
+                   });
+    const Path rhsPath({
+                    Path({Position(2, 1), Position(2, 0)})
+                   });
+    size_t overlapLength;
+    bool value = hasOverlapping(lhsPath, rhsPath, overlapLength);
+
+    QVERIFY(value);
+    QVERIFY(overlapLength == 2);
+}
+
+void TestPathUtils::testHasOverlapping04()
+{
+    const Path lhsPath({
+                    Path({Position(0, 1), Position(2, 1), Position(2, 0), Position(1, 0)})
+                   });
+    const Path rhsPath({
+                    Path({Position(2, 0), Position(1, 0), Position(1, 1)})
+                   });
+    size_t overlapLength;
+    bool value = hasOverlapping(lhsPath, rhsPath, overlapLength);
+
+    QVERIFY(value);
+    QVERIFY(overlapLength == 2);
+}
+
 
 void TestPathUtils::testConcatenatePath01()
 {
