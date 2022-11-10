@@ -51,10 +51,8 @@ bool InternalUtils::UPath::isCreatedPathsAfterCurrent(
         return false;
 
     size_t overlapLength = 0;
-    const Sequence currSequence = matrix.sequenceByPath(currPath);
-    const Sequence nextSequence = matrix.sequenceByPath(nextPath);
 
-    if (InternalUtils::USequence::hasOverlapping(currSequence, nextSequence, overlapLength)) {
+    if (InternalUtils::UPath::hasOverlapping(currPath, nextPath, overlapLength)) {
         Path partOfNextPathForConcatenation(std::vector<Position>(std::begin(nextPath.positions()) + overlapLength, std::end(nextPath.positions())));
         if (partOfNextPathForConcatenation.length() > 0) {
             if (currPath.positions()[currPath.positions().size() - 1].row() == partOfNextPathForConcatenation.positions()[0].row() ||
@@ -74,36 +72,62 @@ bool InternalUtils::UPath::isCreatedPathsAfterCurrent(
 }
 
 
-bool InternalUtils::UPath::hasIntersection(const Path& rhsPath, const Path& lhsPath)
+bool InternalUtils::UPath::hasOverlapping(const Path& lhsPath, const Path& rhsPath, size_t& overlapLength)
 {
-    std::vector<Position> rhs = rhsPath.positions();
+    overlapLength = 0;
+    auto beginIt = std::begin(rhsPath.positions());
+    auto endIt = std::end(rhsPath.positions());
+
+    while (endIt != beginIt) {
+
+        if (endIt - beginIt == 1)
+            if (*beginIt == *(--std::end(lhsPath.positions()))) {
+                overlapLength = 1;
+                return true;
+            }
+
+        auto it = std::search(std::begin(lhsPath.positions()), std::end(lhsPath.positions()), beginIt, endIt);
+        if (it != std::end(lhsPath.positions()))
+            if (endIt == std::end(rhsPath.positions()) || it + (endIt - beginIt) == std::end(lhsPath.positions())) {
+                overlapLength = endIt - beginIt;
+                return true;
+            }
+
+        --endIt;
+    }
+    return false;
+}
+
+bool InternalUtils::UPath::hasIntersection(const Path& lhsPath, const Path& rhsPath)
+{
     std::vector<Position> lhs = lhsPath.positions();
-    std::sort(std::begin(rhs), std::end(rhs));
+    std::vector<Position> rhs = rhsPath.positions();
     std::sort(std::begin(lhs), std::end(lhs));
+    std::sort(std::begin(rhs), std::end(rhs));
     std::vector<Position> intersection;
-    std::set_intersection(std::begin(rhs), std::end(rhs), std::begin(lhs), std::end(lhs), std::back_inserter(intersection));
+    std::set_intersection(std::begin(lhs), std::end(lhs), std::begin(rhs), std::end(rhs), std::back_inserter(intersection));
 
     if (intersection.empty())
         return false;
 
-    rhs = rhsPath.positions();
     lhs = lhsPath.positions();
-    std::vector<Position>::iterator lhsFirstInRhs = std::find(std::begin(intersection), std::end(intersection), lhs[0]);
-    if (lhsFirstInRhs == std::end(intersection))
+    rhs = rhsPath.positions();
+    std::vector<Position>::iterator rhsInLhs = std::find(std::begin(intersection), std::end(intersection), rhs[0]);
+    if (rhsInLhs == std::end(intersection))
         return true;
 
-    lhsFirstInRhs = std::find(std::begin(rhs), std::end(rhs), lhs[0]);
-    std::vector<Position>::iterator trueLhs = std::begin(lhs);
+    rhsInLhs = std::find(std::begin(lhs), std::end(lhs), rhs[0]);
+    std::vector<Position>::iterator trueRhs = std::begin(rhs);
     size_t intersectionSize = intersection.size();
 
-    while (lhsFirstInRhs != std::end(rhs)) {
-        if (*lhsFirstInRhs == *trueLhs) {
-            ++lhsFirstInRhs;
-            ++trueLhs;
+    while (rhsInLhs != std::end(lhs)) {
+        if (*rhsInLhs == *trueRhs) {
+            ++rhsInLhs;
+            ++trueRhs;
             --intersectionSize;
         }
         else {
-            if (trueLhs == std::end(lhs))
+            if (trueRhs == std::end(rhs))
                 return false;
             return true;
         }

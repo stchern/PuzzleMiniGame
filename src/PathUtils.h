@@ -27,6 +27,7 @@ bool isCreatedPathsAfterCurrent(
         std::vector<Path>& outPaths);
 
 bool hasIntersection(const Path& rhsPath, const Path& lhsPath);
+bool hasOverlapping(const Path& rhsPath, const Path& lhsPath, size_t& overlapLength);
 
 
 }
