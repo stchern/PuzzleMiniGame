@@ -62,18 +62,17 @@ bool InternalUtils::USequence::isPossibleAddWastedMovesBetweenSequences(const Pa
     }
     else
     {
-        if (sizeFirst == 1 && sizeSecond == 1)
-            if (firstPosOfPathSecond.row() == lastPosOfPathFirst.row() || firstPosOfPathSecond.column() == lastPosOfPathFirst.column()) {
+        if (sizeFirst == 1 && sizeSecond == 1 && lastPosOfPathFirst.row() == 0 && firstPosOfPathSecond.row() != 0) {
                 outPaths.push_back(InternalUtils::UPath::concatenatePaths(rhsPath, lhsPath));
                 return true;
-            }
+        }
 
         std::vector<std::vector<Path>> possibleIntermediatePaths;
-        if (sizeFirst == 1)
+        if (sizeFirst == 1)   // it means start in the first row, next step to down
         {
             bool isStartByColSecond = !(firstPosOfPathSecond.column() - lhsPath.positions()[1].column());
             possibleIntermediatePaths.push_back(Search::BFS(matrix, lastPosOfPathFirst, firstPosOfPathSecond, isStartByColSecond, true));
-            possibleIntermediatePaths.push_back(Search::BFS(matrix, lastPosOfPathFirst, firstPosOfPathSecond, isStartByColSecond, false));
+//            possibleIntermediatePaths.push_back(Search::BFS(matrix, lastPosOfPathFirst, firstPosOfPathSecond, isStartByColSecond, false));
         }
         else
         {
@@ -168,28 +167,28 @@ bool InternalUtils::USequence::addTwoWastedMovesBeforeFirstSequence(const Path& 
     return false;
 }
 
-bool InternalUtils::USequence::hasOverlapping(const Sequence& rhsSeq, const Sequence& lhsSeq, size_t& overlapLength)
-{
-    overlapLength = 0;
-    auto beginIt = std::begin(lhsSeq.codes());
-    auto endIt = std::end(lhsSeq.codes());
+//bool InternalUtils::USequence::hasOverlapping(const Sequence& rhsSeq, const Sequence& lhsSeq, size_t& overlapLength)
+//{
+//    overlapLength = 0;
+//    auto beginIt = std::begin(lhsSeq.codes());
+//    auto endIt = std::end(lhsSeq.codes());
 
-    while (endIt != beginIt) {
+//    while (endIt != beginIt) {
 
-        if (endIt - beginIt == 1)
-            if (*beginIt == *(--std::end(rhsSeq.codes()))) {
-                overlapLength = 1;
-                return true;
-            }
+//        if (endIt - beginIt == 1)
+//            if (*beginIt == *(--std::end(rhsSeq.codes()))) {
+//                overlapLength = 1;
+//                return true;
+//            }
 
-        auto it = std::search(std::begin(rhsSeq.codes()), std::end(rhsSeq.codes()), std::begin(lhsSeq.codes()), endIt);
-        if (it != std::end(rhsSeq.codes()))
-            if (endIt == std::end(lhsSeq.codes()) || it + (endIt - beginIt) == std::end(rhsSeq.codes())) {
-                overlapLength = endIt - beginIt;
-                return true;
-            }
+//        auto it = std::search(std::begin(rhsSeq.codes()), std::end(rhsSeq.codes()), std::begin(lhsSeq.codes()), endIt);
+//        if (it != std::end(rhsSeq.codes()))
+//            if (endIt == std::end(lhsSeq.codes()) || it + (endIt - beginIt) == std::end(rhsSeq.codes())) {
+//                overlapLength = endIt - beginIt;
+//                return true;
+//            }
 
-        --endIt;
-    }
-    return false;
-}
+//        --endIt;
+//    }
+//    return false;
+//}

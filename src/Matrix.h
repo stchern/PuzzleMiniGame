@@ -18,7 +18,7 @@ public:
     unsigned char value(const Position &position) const;
 
     bool operator==(const Matrix &other) const;
-    Sequence sequenceByPath(const Path& path) const;
+//    Sequence sequenceByPath(const Path& path) const;
 
     std::vector<std::vector<unsigned char>> values() const;
     void setValue(const Position &position, unsigned char value);
