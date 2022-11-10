@@ -17,6 +17,7 @@ private slots:
     void testCombinePurePath01();
     void testCombinePurePath02();
     void testCombinePurePath03();
+    void testCombinePurePath04();
 
     void testIsCreatedPathsAfterCurrent01();
     void testIsCreatedPathsAfterCurrent02();

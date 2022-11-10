@@ -101,27 +101,83 @@ void TestPathUtils::testCombinePurePath03()
 
     const Path ansFirstOutPath({
                             Position(0, 1), Position(2, 1), Position(2, 0), Position(1, 0),
-                                          Position(1, 1)
+                                          Position(1, 1)  //15
 
                        });
     const Path ansSecondOutPath({
                             Position(0, 1), Position(2, 1), Position(2, 0), Position(1, 0),
-                                          Position(1, 2)
+                                          Position(1, 2) // 15
 
                        });
+
     const Path ansThirdOutPath({
                             Position(0, 1), Position(2, 1), Position(2, 0), Position(1, 0),
-                                          Position(1, 2), Position(2, 2), Position(2, 3), Position(0, 3)
+                                          Position(1, 2), Position(2, 2), Position(2, 3), Position(0, 3)  //22
 
                        });
+
     const Path ansFourthOutPath({
                             Position(0, 1), Position(2, 1), Position(2, 0), Position(1, 0),
-                                          Position(1, 2), Position(2, 2), Position(2, 3), Position(0, 3)
+                                          Position(1, 2), Position(2, 2), Position(2, 3), Position(0, 3)  //17
+
+                       });
+    const Path ansFifthOutPath({
+                            Position(0, 1), Position(2, 1), Position(2, 0), Position(1, 0),
+                                          Position(1, 2), Position(2, 2), Position(2, 3), Position(0, 3)  //22
 
                        });
 
     std::vector<std::pair<Path, int>> ansPossiblePath{
-      std::make_pair(ansFirstOutPath, 15),  std::make_pair(ansSecondOutPath, 15), std::make_pair(ansThirdOutPath, ansScore), std::make_pair(ansThirdOutPath, 17),
+      std::make_pair(ansFirstOutPath, 15),  std::make_pair(ansSecondOutPath, 15),
+      std::make_pair(ansThirdOutPath, 22), std::make_pair(ansFourthOutPath, 17), std::make_pair(ansFifthOutPath, 22),
+    };
+
+    QVERIFY(UtilsUnitTests::isEqualsVector(possiblePath, ansPossiblePath));
+
+}
+
+void TestPathUtils::testCombinePurePath04()
+{
+    const std::vector<std::vector<unsigned char>> values{{10, 20, 25, 25}, {5, 3, 3, 2}, {1, 3, 4, 5}};
+    Matrix matrix(values);
+    const Path firstPath({
+                        Position(0, 1), Position(2, 1), Position(2, 0), Position(1, 0)
+                       });
+    const Path secondPath({
+                        Position(2, 0), Position(1, 0), Position(1, 1)
+                       });
+    const Path thirdPath({
+                        Position(2, 3), Position(0, 3)
+                       });
+    const size_t maxLengthPath = 15;
+    const std::vector<Sequence> sequences {
+        Sequence({20, 3, 1, 5}, 10),
+        Sequence({1, 5, 3}, 5),
+        Sequence({5, 25}, 7)
+    };
+    const std::vector<std::vector<Path>> purePaths{
+        {firstPath},
+        {secondPath},
+        {thirdPath}
+    };
+    std::vector<bool> outIsVisitedSequence{true, false, false};
+    std::vector<std::pair<Path, int>> possiblePath;
+    combinePurePath(purePaths, firstPath, sequences, matrix, maxLengthPath, sequences[0].score(), outIsVisitedSequence, possiblePath);
+
+    const Path ansFirstOutPath({
+                            Position(0, 1), Position(2, 1), Position(2, 0), Position(1, 0),
+                                          Position(1, 1)  //15
+
+                       });
+
+    const Path ansSecondOutPath({
+                            Position(0, 1), Position(2, 1), Position(2, 0), Position(1, 0),
+                                          Position(1, 2), Position(2, 2), Position(2, 3), Position(0, 3)
+
+                       });  // 17
+
+    std::vector<std::pair<Path, int>> ansPossiblePath{
+      std::make_pair(ansFirstOutPath, 15), std::make_pair(ansSecondOutPath, 17)
     };
 
     QVERIFY(UtilsUnitTests::isEqualsVector(possiblePath, ansPossiblePath));

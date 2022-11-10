@@ -10,7 +10,6 @@ void InternalUtils::UPath::combinePurePath(
         std::vector<bool>& outIsVisitedSequence, std::vector<std::pair<Path, int>>& possiblePathsAndScore)
 {
     int currScore = score;
-//    std::vector<std::pair<Path, int>> possiblePathsAndScore;
 
     for (size_t seqIdx = 0; seqIdx < purePaths.size(); ++seqIdx) {
         if (outIsVisitedSequence[seqIdx])
