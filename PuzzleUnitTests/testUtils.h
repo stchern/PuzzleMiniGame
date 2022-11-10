@@ -17,7 +17,17 @@ private slots:
     void testAdjacencyMatrix01();
     void testAdjacencyMatrix02();
     void testAdjacencyMatrix03();
-    void testfindAllPurePaths();
+
+    void testfindAllPurePaths01();
+    void testfindAllPurePaths02();
+
+    void testFindBestPath01();
+    void testFindBestPath02();
+    void testFindBestPath03();
+
+    void testCombinePurePaths01();
+    void testCombinePurePaths02();
+    void testCombinePurePaths03();
 
 };
 
