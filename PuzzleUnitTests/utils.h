@@ -8,26 +8,26 @@
 namespace UtilsUnitTests {
 
 template <typename T>
-bool isEqualsVector(const std::vector<T>& rhs, const std::vector<T>& lhs)
+bool isEqualsVector(const std::vector<T>& lhs, const std::vector<T>& rhs)
 {
-    if (rhs.size() != lhs.size())
+    if (lhs.size() != rhs.size())
         return false;
 
-    for (size_t idx = 0; idx < rhs.size(); ++idx)
-        if (!(rhs[idx] == lhs[idx]))
+    for (size_t idx = 0; idx < lhs.size(); ++idx)
+        if (!(lhs[idx] == rhs[idx]))
             return false;
     return true;
 
 }
 
 template <typename T>
-bool isEqualsVectorOfVector(const std::vector<std::vector<T>>& rhs, const std::vector<std::vector<T>>& lhs)
+bool isEqualsVectorOfVector(const std::vector<std::vector<T>>& lhs, const std::vector<std::vector<T>>& rhs)
 {
-    if (rhs.size() != lhs.size())
+    if (lhs.size() != rhs.size())
         return false;
 
-    for (size_t idx = 0; idx < rhs.size(); ++idx)
-        if (!isEqualsVector(rhs[idx], lhs[idx]))
+    for (size_t idx = 0; idx < lhs.size(); ++idx)
+        if (!isEqualsVector(lhs[idx], rhs[idx]))
             return false;
     return true;
 }

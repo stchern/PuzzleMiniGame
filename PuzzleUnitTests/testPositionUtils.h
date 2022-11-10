@@ -29,7 +29,6 @@ private slots:
 
     void testIsFoundTwoPositionsForWastedMoves01();
     void testIsFoundTwoPositionsForWastedMoves02();
-    void testIsFoundTwoPositionsForWastedMoves03();
 
 };
 
