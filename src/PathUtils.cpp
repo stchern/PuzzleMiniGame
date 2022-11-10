@@ -57,11 +57,17 @@ bool InternalUtils::UPath::isCreatedPathsAfterCurrent(
 
     if (InternalUtils::USequence::hasOverlapping(currSequence, nextSequence, overlapLength)) {
         Path partOfNextPathForConcatenation(std::vector<Position>(std::begin(nextPath.positions()) + overlapLength, std::end(nextPath.positions())));
-        if (currPath.positions()[currPath.positions().size() - 1].row() == partOfNextPathForConcatenation.positions()[0].row() ||
-                currPath.positions()[currPath.positions().size() - 1].column() == partOfNextPathForConcatenation.positions()[0].column()) {
-            outPaths.push_back(concatenatePaths(currPath, partOfNextPathForConcatenation));
-            return true;
+        if (partOfNextPathForConcatenation.length() > 0) {
+            if (currPath.positions()[currPath.positions().size() - 1].row() == partOfNextPathForConcatenation.positions()[0].row() ||
+                    currPath.positions()[currPath.positions().size() - 1].column() == partOfNextPathForConcatenation.positions()[0].column()) {
+                outPaths.push_back(concatenatePaths(currPath, partOfNextPathForConcatenation));
+                return true;
+            }
         }
+        else {
+                outPaths.push_back(concatenatePaths(currPath, partOfNextPathForConcatenation));
+                return true;
+            }
     }
     if (InternalUtils::USequence::isPossibleAddWastedMovesBetweenSequences(currPath, nextPath, matrix, maxLengthPath, outPaths))
         return true;
@@ -89,18 +95,22 @@ bool InternalUtils::UPath::hasIntersection(const Path& rhsPath, const Path& lhsP
 
     lhsFirstInRhs = std::find(std::begin(rhs), std::end(rhs), lhs[0]);
     std::vector<Position>::iterator trueLhs = std::begin(lhs);
+    size_t intersectionSize = intersection.size();
 
     while (lhsFirstInRhs != std::end(rhs)) {
         if (*lhsFirstInRhs == *trueLhs) {
             ++lhsFirstInRhs;
             ++trueLhs;
+            --intersectionSize;
         }
         else {
+            if (trueLhs == std::end(lhs))
+                return false;
             return true;
         }
     }
 
-    return false;
+    return intersectionSize;
 }
 
 Path InternalUtils::UPath::concatenatePaths(const Path& rhsPath, const Path& lhsPath)

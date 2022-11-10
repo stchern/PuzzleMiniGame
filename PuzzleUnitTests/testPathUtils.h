@@ -30,6 +30,7 @@ private slots:
     void testHasIntersection04();
     void testHasIntersection05();
     void testHasIntersection06();
+    void testHasIntersection07();
 
     void testConcatenatePath01();
     void testConcatenatePath02();

@@ -295,7 +295,7 @@ void TestPathUtils::testHasIntersection04()
 
     bool value = hasIntersection(rhsPath, lhsPath);
 
-    QVERIFY(!value);
+    QVERIFY(value);
 }
 
 void TestPathUtils::testHasIntersection05()
@@ -323,7 +323,23 @@ void TestPathUtils::testHasIntersection06()
                    });
     bool value = hasIntersection(rhsPath, lhsPath);
 
-    QVERIFY(value); // WARNING!! THIS IS NOT CORRECT
+    QVERIFY(value);
+}
+
+
+
+void TestPathUtils::testHasIntersection07()
+{
+
+    const Path rhsPath({
+                    Path({Position(1, 3), Position(2, 3), Position(2, 2), Position(1, 2)})
+                   });
+    const Path lhsPath({
+                    Path({Position(1, 3), Position(2, 3)})
+                   });
+    bool value = hasIntersection(rhsPath, lhsPath);
+
+    QVERIFY(!value);
 }
 
 void TestPathUtils::testConcatenatePath01()
