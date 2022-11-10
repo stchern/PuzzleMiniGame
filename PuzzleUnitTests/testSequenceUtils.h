@@ -14,13 +14,13 @@ public:
 
 private slots:
 
-    void testHasOverlapping01();
-    void testHasOverlapping02();
-    void testHasOverlapping03();
-    void testHasOverlapping04();
-    void testHasOverlapping05();
-    void testHasOverlapping06();
-    void testHasOverlapping07();
+//    void testHasOverlapping01();
+//    void testHasOverlapping02();
+//    void testHasOverlapping03();
+//    void testHasOverlapping04();
+//    void testHasOverlapping05();
+//    void testHasOverlapping06();
+//    void testHasOverlapping07();
 
     void testAddOneWastedMoveBeforeFirstSequence01();
     void testAddOneWastedMoveBeforeFirstSequence02();
