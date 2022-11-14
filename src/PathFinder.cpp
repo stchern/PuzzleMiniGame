@@ -24,8 +24,8 @@ Path PathFinder::run()
             throw InvalidArgumentError("Invalid argument error");
     }
 
-    std::vector<std::vector<Position>> adjacencyMatrix = Utils::adjacencyMatrix(m_matrix, m_sequences);
-    std::vector<std::vector<Path>> purePaths = Utils::findAllPurePaths(m_matrix, m_sequences, adjacencyMatrix, m_maxPathLength);
+    std::vector<std::vector<Position>> beginningSequencesList = Utils::beginningSequencesList(m_matrix, m_sequences);
+    std::vector<std::vector<Path>> purePaths = Utils::findAllPurePaths(m_matrix, m_sequences, beginningSequencesList, m_maxPathLength);
     std::vector<std::vector<std::pair<Path, int>>> allPathsAndScores = Utils::combinePurePaths(purePaths, m_matrix, m_sequences, m_maxPathLength);
     Path bestPath = Utils::findBestPath(allPathsAndScores);
 

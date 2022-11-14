@@ -10,9 +10,7 @@ class PathFinder
 {
 public:
     PathFinder(const Matrix &matrix, const std::vector<Sequence> &sequences, int maxPathLength);
-
     Path run();
-
 
 private:
     Matrix m_matrix;
