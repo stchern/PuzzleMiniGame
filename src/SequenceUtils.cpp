@@ -4,22 +4,36 @@
 #include "Search.h"
 
 
-bool InternalUtils::USequence::isPossibleAddWastedMovesBetweenSequences(const Path& rhsPath, const Path& lhsPath, const Matrix& matrix, const size_t maxLengthPath, std::vector<Path>& outPaths)
+bool InternalUtils::USequence::isPossibleAddWastedMovesBetweenSequences(const Path& lhsPath, const Path& rhsPath, const Matrix& matrix, const size_t maxLengthPath, std::vector<Path>& outPaths)
 {
-    size_t sizeFirst = rhsPath.positions().size();
-    size_t sizeSecond = lhsPath.positions().size();
+    size_t sizeFirst = lhsPath.positions().size();
+    size_t sizeSecond = rhsPath.positions().size();
 
     if (sizeFirst + sizeSecond > maxLengthPath)
         return false;
 
-    Position lastPosOfPathFirst = rhsPath.positions()[sizeFirst - 1];
-    Position firstPosOfPathSecond = lhsPath.positions()[0];
+    Position lastPosOfPathFirst = lhsPath.positions()[sizeFirst - 1];
+    Position firstPosOfPathSecond = rhsPath.positions()[0];
     std::vector<Path> intermediatePaths;
     if (sizeFirst > 1 && sizeSecond > 1) {
-        bool isFinishByColFirst = !(lastPosOfPathFirst.column() - rhsPath.positions()[sizeFirst - 2].column());
-        bool isStartByColSecond = !(firstPosOfPathSecond.column() - lhsPath.positions()[1].column());
+        bool isFinishByColFirst = !(lastPosOfPathFirst.column() - lhsPath.positions()[sizeFirst - 2].column());
+        bool isStartByColSecond = !(firstPosOfPathSecond.column() - rhsPath.positions()[1].column());
 
         if (isFinishByColFirst != isStartByColSecond) {
+
+            if (firstPosOfPathSecond.row() == lastPosOfPathFirst.row() || firstPosOfPathSecond.column() == lastPosOfPathFirst.column()) {
+                std::vector<Path> possibleIntermediatePaths = Search::BFS(matrix, lastPosOfPathFirst, firstPosOfPathSecond, isStartByColSecond, !isFinishByColFirst);
+                for (const Path& possibleIntermediatePath: possibleIntermediatePaths) {
+                    bool value = true;
+                    for (const Position& position: possibleIntermediatePath.positions())
+                        if (InternalUtils::UPosition::isPositionInPath(lhsPath.positions(), position) ||
+                                InternalUtils::UPosition::isPositionInPath(rhsPath.positions(), position))
+                                    value = false;
+                    if (value && sizeFirst + sizeSecond + possibleIntermediatePath.positions().size() <= maxLengthPath)
+                        intermediatePaths.push_back(possibleIntermediatePath);
+                }
+            }
+
             Position intersectionPoint(0, 0);
             if (isFinishByColFirst)
                 intersectionPoint = Position(lastPosOfPathFirst.row(), firstPosOfPathSecond.column());
@@ -27,21 +41,21 @@ bool InternalUtils::USequence::isPossibleAddWastedMovesBetweenSequences(const Pa
             if (isStartByColSecond)
                 intersectionPoint = Position(firstPosOfPathSecond.row(), lastPosOfPathFirst.column());
 
-            if (!InternalUtils::UPosition::isPositionInPath(rhsPath.positions(), intersectionPoint) &&
-                    !InternalUtils::UPosition::isPositionInPath(lhsPath.positions(), intersectionPoint) && sizeFirst + sizeSecond + 1 <= maxLengthPath)
+            if (!InternalUtils::UPosition::isPositionInPath(lhsPath.positions(), intersectionPoint) &&
+                    !InternalUtils::UPosition::isPositionInPath(rhsPath.positions(), intersectionPoint) && sizeFirst + sizeSecond + 1 <= maxLengthPath)
                 intermediatePaths.push_back(Path(std::vector<Position>({intersectionPoint})));
         }
         else {
-            if (firstPosOfPathSecond.row() == lastPosOfPathFirst.row() || firstPosOfPathSecond.column() == lastPosOfPathFirst.column()) {
-                outPaths.push_back(InternalUtils::UPath::concatenatePaths(rhsPath, lhsPath));
-                return true;
-            }
+//            if (firstPosOfPathSecond.row() == lastPosOfPathFirst.row() || firstPosOfPathSecond.column() == lastPosOfPathFirst.column()) {
+//                outPaths.push_back(InternalUtils::UPath::concatenatePaths(lhsPath, rhsPath));
+//                return true;
+//            }
                 std::vector<Path> possibleIntermediatePaths = Search::BFS(matrix, lastPosOfPathFirst, firstPosOfPathSecond, isStartByColSecond, !isFinishByColFirst);
                 for (const Path& possibleIntermediatePath: possibleIntermediatePaths) {
                     bool value = true;
                     for (const Position& position: possibleIntermediatePath.positions())
-                        if (InternalUtils::UPosition::isPositionInPath(rhsPath.positions(), position) ||
-                                InternalUtils::UPosition::isPositionInPath(lhsPath.positions(), position))
+                        if (InternalUtils::UPosition::isPositionInPath(lhsPath.positions(), position) ||
+                                InternalUtils::UPosition::isPositionInPath(rhsPath.positions(), position))
                                     value = false;
                     if (value && sizeFirst + sizeSecond + possibleIntermediatePath.positions().size() <= maxLengthPath)
                         intermediatePaths.push_back(possibleIntermediatePath);
@@ -54,8 +68,8 @@ bool InternalUtils::USequence::isPossibleAddWastedMovesBetweenSequences(const Pa
 
         for (const Path& intermediatePath: intermediatePaths)
             if (sizeFirst + sizeSecond + intermediatePath.positions().size() <= maxLengthPath) {
-                Path resultPath = InternalUtils::UPath::concatenatePaths(rhsPath, intermediatePath);
-                outPaths.push_back(InternalUtils::UPath::concatenatePaths(resultPath, lhsPath));
+                Path resultPath = InternalUtils::UPath::concatenatePaths(lhsPath, intermediatePath);
+                outPaths.push_back(InternalUtils::UPath::concatenatePaths(resultPath, rhsPath));
             }
 
         return true;
@@ -63,20 +77,19 @@ bool InternalUtils::USequence::isPossibleAddWastedMovesBetweenSequences(const Pa
     else
     {
         if (sizeFirst == 1 && sizeSecond == 1 && lastPosOfPathFirst.row() == 0 && firstPosOfPathSecond.row() != 0) {
-                outPaths.push_back(InternalUtils::UPath::concatenatePaths(rhsPath, lhsPath));
+                outPaths.push_back(InternalUtils::UPath::concatenatePaths(lhsPath, rhsPath));
                 return true;
         }
 
         std::vector<std::vector<Path>> possibleIntermediatePaths;
         if (sizeFirst == 1)   // it means start in the first row, next step to down
         {
-            bool isStartByColSecond = !(firstPosOfPathSecond.column() - lhsPath.positions()[1].column());
+            bool isStartByColSecond = !(firstPosOfPathSecond.column() - rhsPath.positions()[1].column());
             possibleIntermediatePaths.push_back(Search::BFS(matrix, lastPosOfPathFirst, firstPosOfPathSecond, isStartByColSecond, true));
-//            possibleIntermediatePaths.push_back(Search::BFS(matrix, lastPosOfPathFirst, firstPosOfPathSecond, isStartByColSecond, false));
         }
         else
         {
-            bool isFinishByColFirst = !(lastPosOfPathFirst.column() - rhsPath.positions()[sizeFirst - 2].column());
+            bool isFinishByColFirst = !(lastPosOfPathFirst.column() - lhsPath.positions()[sizeFirst - 2].column());
             possibleIntermediatePaths.push_back(Search::BFS(matrix, lastPosOfPathFirst, firstPosOfPathSecond, true, !isFinishByColFirst));
             possibleIntermediatePaths.push_back(Search::BFS(matrix, lastPosOfPathFirst, firstPosOfPathSecond, false, !isFinishByColFirst));
         }
@@ -86,12 +99,12 @@ bool InternalUtils::USequence::isPossibleAddWastedMovesBetweenSequences(const Pa
                 for (const Path& intermediatePath: intermediatePaths) {
                     bool value = true;
                     for (const Position& position: intermediatePath.positions())
-                        if (InternalUtils::UPosition::isPositionInPath(rhsPath.positions(), position) ||
-                                InternalUtils::UPosition::isPositionInPath(lhsPath.positions(), position))
+                        if (InternalUtils::UPosition::isPositionInPath(lhsPath.positions(), position) ||
+                                InternalUtils::UPosition::isPositionInPath(rhsPath.positions(), position))
                                     value = false;
                     if (value && sizeFirst + sizeSecond + intermediatePath.positions().size() <= maxLengthPath) {
-                        Path resultPath = InternalUtils::UPath::concatenatePaths(rhsPath, intermediatePath);
-                        outPaths.push_back(InternalUtils::UPath::concatenatePaths(resultPath, lhsPath));
+                        Path resultPath = InternalUtils::UPath::concatenatePaths(lhsPath, intermediatePath);
+                        outPaths.push_back(InternalUtils::UPath::concatenatePaths(resultPath, rhsPath));
                     }
             }
         if (!outPaths.empty())
@@ -166,29 +179,3 @@ bool InternalUtils::USequence::addTwoWastedMovesBeforeFirstSequence(const Path& 
     }
     return false;
 }
-
-//bool InternalUtils::USequence::hasOverlapping(const Sequence& rhsSeq, const Sequence& lhsSeq, size_t& overlapLength)
-//{
-//    overlapLength = 0;
-//    auto beginIt = std::begin(lhsSeq.codes());
-//    auto endIt = std::end(lhsSeq.codes());
-
-//    while (endIt != beginIt) {
-
-//        if (endIt - beginIt == 1)
-//            if (*beginIt == *(--std::end(rhsSeq.codes()))) {
-//                overlapLength = 1;
-//                return true;
-//            }
-
-//        auto it = std::search(std::begin(rhsSeq.codes()), std::end(rhsSeq.codes()), std::begin(lhsSeq.codes()), endIt);
-//        if (it != std::end(rhsSeq.codes()))
-//            if (endIt == std::end(lhsSeq.codes()) || it + (endIt - beginIt) == std::end(rhsSeq.codes())) {
-//                overlapLength = endIt - beginIt;
-//                return true;
-//            }
-
-//        --endIt;
-//    }
-//    return false;
-//}

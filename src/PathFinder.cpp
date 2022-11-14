@@ -1,9 +1,3 @@
-// ---------------------------------------------------------------------------------------------
-// PLEASE DO NOT MODIFY, RENAME OR REMOVE ANY OF CLASSES, METHODS AND VARIABLES BELOW
-// EXCEPT PATHFINDER::RUN() METHOD THAT YOU NEED TO IMPLEMENT.
-// YOU CAN ADD YOUR OWN METHODS AND VARIABLES TO THE EXISTING CLASSES AND USE THEM IN YOUR WORK.
-// ---------------------------------------------------------------------------------------------
-
 #include "PathFinder.h"
 #include "Utils.h"
 #include "InvalidArgumentError.h"
@@ -38,5 +32,5 @@ Path PathFinder::run()
     if (bestPath.positions().empty())
         throw PathNotFoundError("Path not found");
 
-    return Path();
+    return bestPath;
 }

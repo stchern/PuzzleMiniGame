@@ -1,8 +1,3 @@
-// ---------------------------------------------------------------------------------------------
-// PLEASE DO NOT MODIFY, RENAME OR REMOVE ANY OF CLASSES, METHODS AND VARIABLES BELOW.
-// YOU CAN ADD YOUR OWN METHODS AND VARIABLES TO THE EXISTING CLASSES AND USE THEM IN YOUR WORK.
-// ---------------------------------------------------------------------------------------------
-
 #include "Sequence.h"
 
 Sequence::Sequence(const std::vector<unsigned char> &codes, int score)

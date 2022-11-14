@@ -45,8 +45,6 @@ bool InternalUtils::UPath::isCreatedPathsAfterCurrent(
         const size_t maxLengthPath,
         std::vector<Path>& outPaths)
 {
-    if (currPath.length() + nextPath.length() > maxLengthPath)
-        return false;
     if (hasIntersection(currPath, nextPath))
         return false;
 
@@ -54,18 +52,21 @@ bool InternalUtils::UPath::isCreatedPathsAfterCurrent(
 
     if (InternalUtils::UPath::hasOverlapping(currPath, nextPath, overlapLength)) {
         Path partOfNextPathForConcatenation(std::vector<Position>(std::begin(nextPath.positions()) + overlapLength, std::end(nextPath.positions())));
-        if (partOfNextPathForConcatenation.length() > 0) {
-            if (currPath.positions()[currPath.positions().size() - 1].row() == partOfNextPathForConcatenation.positions()[0].row() ||
-                    currPath.positions()[currPath.positions().size() - 1].column() == partOfNextPathForConcatenation.positions()[0].column()) {
-                outPaths.push_back(concatenatePaths(currPath, partOfNextPathForConcatenation));
-                return true;
+        if (currPath.length() + partOfNextPathForConcatenation.length() <= maxLengthPath) {
+            if (partOfNextPathForConcatenation.length() > 0) {
+                if (currPath.positions()[currPath.positions().size() - 1].row() == partOfNextPathForConcatenation.positions()[0].row() ||
+                        currPath.positions()[currPath.positions().size() - 1].column() == partOfNextPathForConcatenation.positions()[0].column()) {
+                    outPaths.push_back(concatenatePaths(currPath, partOfNextPathForConcatenation));
+                    return true;
+                }
             }
+            else {
+                    outPaths.push_back(concatenatePaths(currPath, partOfNextPathForConcatenation));
+                    return true;
+                }
         }
-        else {
-                outPaths.push_back(concatenatePaths(currPath, partOfNextPathForConcatenation));
-                return true;
-            }
     }
+
     if (InternalUtils::USequence::isPossibleAddWastedMovesBetweenSequences(currPath, nextPath, matrix, maxLengthPath, outPaths))
         return true;
     return false;
