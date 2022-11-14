@@ -50,7 +50,7 @@ void TestPathUtils::testCombinePurePath02()
     const Path secondPath({
                         Position(2, 0), Position(1, 0), Position(1, 2)
                        });
-    const size_t maxLengthPath = 5;
+    const size_t maxLengthPath = 4;
     const std::vector<Sequence> sequences {
         Sequence({20, 3, 1, 5}, 10),
         Sequence({1, 5, 3}, 5)

@@ -1,5 +1,6 @@
 #include "testPositionUtils.h"
 #include "src/PositionUtils.h"
+#include "utils.h"
 
 using namespace InternalUtils::UPosition;
 
@@ -40,7 +41,7 @@ void TestPositionUtils::testIsFoundNextPositionsInColsAndRowsByPosition01()
     std::queue<std::pair<Position, Path>> queue;
     bool isStartFromCol = true;
 
-    nextPositionsInColsOrRows(matrix, startPositionAndPath, positionToFound, queue, isStartFromCol);
+    nextPositionsInColsOrRows(startPositionAndPath, positionToFound, matrix.rowCount(), matrix.columnCount(), queue, isStartFromCol);
     std::queue<std::pair<Position, Path>> ansQueue;
     ansQueue.push(std::make_pair(Position(1, 1), Path({startPosition, Position(1, 1)})));
     ansQueue.push(std::make_pair(Position(2, 1), Path({startPosition, Position(2, 1)})));
@@ -59,7 +60,7 @@ void TestPositionUtils::testIsFoundNextPositionsInColsAndRowsByPosition02()
     std::queue<std::pair<Position, Path>> queue;
     bool isStartFromCol = false;
 
-    nextPositionsInColsOrRows(matrix, startPositionAndPath, positionToFound, queue, isStartFromCol);
+    nextPositionsInColsOrRows(startPositionAndPath, positionToFound, matrix.rowCount(), matrix.columnCount(), queue, isStartFromCol);
     std::queue<std::pair<Position, Path>> ansQueue;
     ansQueue.push(std::make_pair(Position(0, 3), Path({startPosition, Position(0, 3)})));
 
@@ -78,7 +79,7 @@ void TestPositionUtils::testIsFoundNextPositionsInColsAndRowsByPosition03()
     std::queue<std::pair<Position, Path>> queue;
     bool isStartFromCol = false;
 
-    nextPositionsInColsOrRows(matrix, startPositionAndPath, positionToFound, queue, isStartFromCol);
+    nextPositionsInColsOrRows(startPositionAndPath, positionToFound, matrix.rowCount(), matrix.columnCount(), queue, isStartFromCol);
     std::queue<std::pair<Position, Path>> ansQueue;
     ansQueue.push(std::make_pair(Position(0, 0), Path({startPosition, Position(0, 0)})));
     ansQueue.push(std::make_pair(Position(0, 2), Path({startPosition, Position(0, 2)})));
@@ -98,7 +99,7 @@ void TestPositionUtils::testIsFoundNextPositionsInColsAndRowsByPosition04()
     std::queue<std::pair<Position, Path>> queue;
     bool isStartFromCol = true;
 
-    nextPositionsInColsOrRows(matrix, startPositionAndPath, positionToFound, queue, isStartFromCol);
+    nextPositionsInColsOrRows(startPositionAndPath, positionToFound, matrix.rowCount(), matrix.columnCount(), queue, isStartFromCol);
     std::queue<std::pair<Position, Path>> ansQueue;
     ansQueue.push(std::make_pair(Position(1, 1), Path({startPosition, Position(1, 1)})));
 
@@ -189,14 +190,14 @@ void TestPositionUtils::testIsFoundTwoPositionsForWastedMoves01()
         };
     const Position position(2, 0);
     const int maxColumnCount = 4;
-    Path outPathOfTwoPositions;
-    bool value = isFoundTwoPositionsForWastedMoves(pathPositions, position, maxColumnCount, outPathOfTwoPositions);
+    std::vector<Path> outPathsOfTwoPositions;
+    bool value = isFoundTwoPositionsForWastedMoves(pathPositions, position, maxColumnCount, outPathsOfTwoPositions);
 
-    const std::vector<Position> ansPathPositions{
-         Position(0, 1), Position(2, 1)
+    const std::vector<Path> ansPathPositions{
+         {Path{{{0, 1}, {2, 1}}}}
         };
     QVERIFY(value);
-    QVERIFY(outPathOfTwoPositions == ansPathPositions);
+    QVERIFY(UtilsUnitTests::isEqualsVector(outPathsOfTwoPositions, ansPathPositions));
 }
 
 
@@ -208,11 +209,11 @@ void TestPositionUtils::testIsFoundTwoPositionsForWastedMoves02()
         };
     const Position position(2, 0);
     const int maxColumnCount = 4;
-    Path outPathOfTwoPositions;
-    bool value = isFoundTwoPositionsForWastedMoves(pathPositions, position, maxColumnCount, outPathOfTwoPositions);
+    std::vector<Path> outPathsOfTwoPositions;
+    bool value = isFoundTwoPositionsForWastedMoves(pathPositions, position, maxColumnCount, outPathsOfTwoPositions);
 
     QVERIFY(!value);
-    QVERIFY(outPathOfTwoPositions.positions().empty());
+    QVERIFY(outPathsOfTwoPositions.empty());
 }
 
 
