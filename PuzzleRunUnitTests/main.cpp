@@ -16,10 +16,10 @@ int main(int argc, char *argv[])
 
     QStringList args;
     args << "" << "-silent";
-//    QTest::qExec(&testUtils, args);
-//    QTest::qExec(&testMatrixUtils, args);
-//    QTest::qExec(&testSequenceUtils, args);
-//    QTest::qExec(&testPathUtils, args);
+    QTest::qExec(&testUtils, args);
+    QTest::qExec(&testMatrixUtils, args);
+    QTest::qExec(&testSequenceUtils, args);
+    QTest::qExec(&testPathUtils, args);
     QTest::qExec(&testPositionUtils, args);
 
     return 0;

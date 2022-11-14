@@ -110,30 +110,35 @@ bool InternalUtils::UPath::hasIntersection(const Path& lhsPath, const Path& rhsP
     if (intersection.empty())
         return false;
 
-    lhs = lhsPath.positions();
-    rhs = rhsPath.positions();
-    std::vector<Position>::iterator rhsInLhs = std::find(std::begin(intersection), std::end(intersection), rhs[0]);
-    if (rhsInLhs == std::end(intersection))
-        return true;
+    size_t overlapLength;
+    if (hasOverlapping(lhsPath, rhsPath, overlapLength))
+        return false;
 
-    rhsInLhs = std::find(std::begin(lhs), std::end(lhs), rhs[0]);
-    std::vector<Position>::iterator trueRhs = std::begin(rhs);
-    size_t intersectionSize = intersection.size();
+    return true;
+//    lhs = lhsPath.positions();
+//    rhs = rhsPath.positions();
+//    std::vector<Position>::iterator rhsInLhs = std::find(std::begin(intersection), std::end(intersection), rhs[0]);
+//    if (rhsInLhs == std::end(intersection))
+//        return true;
 
-    while (rhsInLhs != std::end(lhs)) {
-        if (*rhsInLhs == *trueRhs) {
-            ++rhsInLhs;
-            ++trueRhs;
-            --intersectionSize;
-        }
-        else {
-            if (trueRhs == std::end(rhs))
-                return false;
-            return true;
-        }
-    }
+//    rhsInLhs = std::find(std::begin(lhs), std::end(lhs), rhs[0]);
+//    std::vector<Position>::iterator trueRhs = std::begin(rhs);
+//    size_t intersectionSize = intersection.size();
 
-    return intersectionSize;
+//    while (rhsInLhs != std::end(lhs)) {
+//        if (*rhsInLhs == *trueRhs) {
+//            ++rhsInLhs;
+//            ++trueRhs;
+//            --intersectionSize;
+//        }
+//        else {
+//            if (trueRhs == std::end(rhs))
+//                return false;
+//            return true;
+//        }
+//    }
+
+//    return intersectionSize;
 }
 
 Path InternalUtils::UPath::concatenatePaths(const Path& rhsPath, const Path& lhsPath)
