@@ -15,7 +15,7 @@ std::vector<Path> Search::DFS(
         return std::vector<Path>{Path(std::vector<Position>{startPosition})};
 
     std::vector<Path> possiblePaths;
-    if (sequence.codes().size() >= maxLengthPath)
+    if (sequence.codes().size() > maxLengthPath)
         return possiblePaths;
 
     Matrix isVisitedMatrix = InternalUtils::UMatrix::createIsVisitedMatrix(matrix.rowCount(), matrix.columnCount(), startPosition);
