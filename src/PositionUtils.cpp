@@ -1,7 +1,7 @@
 #include "PositionUtils.h"
 #include "MatrixUtils.h"
 
-void InternalUtils::UPosition::nextPositionsInColsOrRows(
+void InternalUtils::UPosition::nextPositionsInColOrRow(
         const std::pair<Position, Path>& startPositionAndPath,
         const Position& positionToFound,
         size_t rowCount, size_t columnCount,
@@ -91,10 +91,7 @@ bool InternalUtils::UPosition::isFoundNextPositionsInColsAndRowsByValue(
 bool InternalUtils::UPosition::isPositionInPath(const std::vector<Position>& pathPositions, const Position& position)
 {
     auto it = std::find(std::begin(pathPositions), std::end(pathPositions), position);
-    if (it != std::end(pathPositions))
-        return true;
-
-    return false;
+    return it != std::end(pathPositions);
 }
 
 bool InternalUtils::UPosition::isFoundTwoPositionsForWastedMoves(const std::vector<Position>& positions, const Position& currPosition, const int maxColumnCount, std::vector<Path>& outPathsOfTwoPositions)
@@ -105,9 +102,9 @@ bool InternalUtils::UPosition::isFoundTwoPositionsForWastedMoves(const std::vect
         if (col != currCol) {
             Position positionInSameRow(currRow, col);
             Position positionInFirstRow(0, col);
-            if (!isPositionInPath(positions, positionInFirstRow) && !isPositionInPath(positions, positionInSameRow)) {
+            if (!isPositionInPath(positions, positionInFirstRow) && !isPositionInPath(positions, positionInSameRow))
                 outPathsOfTwoPositions.push_back(Path({positionInFirstRow, positionInSameRow}));
-            }
+
         }
     return !outPathsOfTwoPositions.empty();
 }

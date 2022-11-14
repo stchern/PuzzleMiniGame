@@ -42,17 +42,6 @@ void Matrix::setValue(const Position &position, unsigned char value)
     this->m_values[position.row()][position.column()] = value;
 }
 
-//Sequence Matrix::sequenceByPath(const Path& path) const
-//{
-//    std::vector<unsigned char> codes;
-//    for (const Position& position: path.positions()) {
-//        Q_ASSERT(position.row() < rowCount());
-//        Q_ASSERT(position.column() < columnCount());
-//        codes.push_back(this->m_values[position.row()][position.column()]);
-//    }
-//    return Sequence(codes, 0);
-//}
-
 bool Matrix::operator==(const Matrix &other) const
 {
     if (this->values().size() != other.values().size())

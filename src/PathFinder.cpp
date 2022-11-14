@@ -12,8 +12,6 @@ PathFinder::PathFinder(const Matrix &matrix, const std::vector<Sequence> &sequen
 
 Path PathFinder::run()
 {
-    // TODO: Implement me.
-
     if (m_matrix.values().empty() || m_sequences.empty() || m_maxPathLength <= 0)
         throw InvalidArgumentError("Invalid argument error");
 

@@ -1,14 +1,6 @@
 #include "MatrixUtils.h"
 #include <QtGlobal>
 
-bool InternalUtils::UMatrix::isValid(const Position& currPosition, const Matrix& isVisitedMatrix, const Matrix& matrix, unsigned char seqValue)
-{
-    if (isVisitedMatrix.value(currPosition))
-        return false;
-    return true;
-
-}
-
 bool InternalUtils::UMatrix::isFoundInRow(const Matrix& matrix,  const Position& startPosition, unsigned char value, std::vector<Position>& outVector)
 {
     size_t startRow = startPosition.row();
@@ -20,16 +12,13 @@ bool InternalUtils::UMatrix::isFoundInRow(const Matrix& matrix,  const Position&
             if (matrix.values()[startRow][col] == value)
                 resultVector.push_back(Position(startRow, col));
 
-    if (resultVector.empty())
-        return false;
     for (const Position& position: resultVector)
         outVector.push_back(position);
-    return true;
+    return !resultVector.empty();
 }
 
 bool InternalUtils::UMatrix::isFoundInCol(const Matrix& matrix,  const Position& startPosition, unsigned char value, std::vector<Position>& outVector)
 {
-
     size_t startRow = startPosition.row();
     size_t startCol = startPosition.column();
     std::vector<Position> resultVector;
@@ -38,12 +27,10 @@ bool InternalUtils::UMatrix::isFoundInCol(const Matrix& matrix,  const Position&
         if (row != startRow)
             if (matrix.values()[row][startCol] == value)
                 resultVector.push_back(Position(row, startCol));
-
-    if (resultVector.empty())
-        return false;
     for (const Position& position: resultVector)
         outVector.push_back(position);
-    return true;
+
+    return !resultVector.empty();
 }
 
 Matrix InternalUtils::UMatrix::createIsVisitedMatrix(int row, int col, const Position& startPosition)
@@ -62,5 +49,4 @@ void InternalUtils::UMatrix::setVisitedPositions(Matrix& isVisitedMatrix, const 
             Q_ASSERT(visitedPath.positions()[posIdx].column() < isVisitedMatrix.columnCount());
             isVisitedMatrix.setValue(visitedPath.positions()[posIdx], 1);
         }
-
 }

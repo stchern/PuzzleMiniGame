@@ -10,7 +10,6 @@ namespace InternalUtils {
 namespace UMatrix
 {
 
-bool isValid(const Position& currPosition, const Matrix& isVisitedMatrix, const Matrix& matrix, unsigned char seqValue);
 bool isFoundInRow(const Matrix& matrix,  const Position& startPosition, unsigned char value, std::vector<Position>& outVector);
 bool isFoundInCol(const Matrix& matrix,  const Position& startPosition, unsigned char value, std::vector<Position>& outVector);
 void setVisitedPositions(Matrix& isVisitedMatrix, const Path& visitedPath = Path(std::vector<Position>{}));

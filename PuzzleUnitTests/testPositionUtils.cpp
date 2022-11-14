@@ -41,7 +41,7 @@ void TestPositionUtils::testIsFoundNextPositionsInColsAndRowsByPosition01()
     std::queue<std::pair<Position, Path>> queue;
     bool isStartFromCol = true;
 
-    nextPositionsInColsOrRows(startPositionAndPath, positionToFound, matrix.rowCount(), matrix.columnCount(), queue, isStartFromCol);
+    nextPositionsInColOrRow(startPositionAndPath, positionToFound, matrix.rowCount(), matrix.columnCount(), queue, isStartFromCol);
     std::queue<std::pair<Position, Path>> ansQueue;
     ansQueue.push(std::make_pair(Position(1, 1), Path({startPosition, Position(1, 1)})));
     ansQueue.push(std::make_pair(Position(2, 1), Path({startPosition, Position(2, 1)})));
@@ -60,7 +60,7 @@ void TestPositionUtils::testIsFoundNextPositionsInColsAndRowsByPosition02()
     std::queue<std::pair<Position, Path>> queue;
     bool isStartFromCol = false;
 
-    nextPositionsInColsOrRows(startPositionAndPath, positionToFound, matrix.rowCount(), matrix.columnCount(), queue, isStartFromCol);
+    nextPositionsInColOrRow(startPositionAndPath, positionToFound, matrix.rowCount(), matrix.columnCount(), queue, isStartFromCol);
     std::queue<std::pair<Position, Path>> ansQueue;
     ansQueue.push(std::make_pair(Position(0, 3), Path({startPosition, Position(0, 3)})));
 
@@ -79,7 +79,7 @@ void TestPositionUtils::testIsFoundNextPositionsInColsAndRowsByPosition03()
     std::queue<std::pair<Position, Path>> queue;
     bool isStartFromCol = false;
 
-    nextPositionsInColsOrRows(startPositionAndPath, positionToFound, matrix.rowCount(), matrix.columnCount(), queue, isStartFromCol);
+    nextPositionsInColOrRow(startPositionAndPath, positionToFound, matrix.rowCount(), matrix.columnCount(), queue, isStartFromCol);
     std::queue<std::pair<Position, Path>> ansQueue;
     ansQueue.push(std::make_pair(Position(0, 0), Path({startPosition, Position(0, 0)})));
     ansQueue.push(std::make_pair(Position(0, 2), Path({startPosition, Position(0, 2)})));
@@ -99,7 +99,7 @@ void TestPositionUtils::testIsFoundNextPositionsInColsAndRowsByPosition04()
     std::queue<std::pair<Position, Path>> queue;
     bool isStartFromCol = true;
 
-    nextPositionsInColsOrRows(startPositionAndPath, positionToFound, matrix.rowCount(), matrix.columnCount(), queue, isStartFromCol);
+    nextPositionsInColOrRow(startPositionAndPath, positionToFound, matrix.rowCount(), matrix.columnCount(), queue, isStartFromCol);
     std::queue<std::pair<Position, Path>> ansQueue;
     ansQueue.push(std::make_pair(Position(1, 1), Path({startPosition, Position(1, 1)})));
 

@@ -35,7 +35,7 @@ std::vector<Path> Search::DFS(
         Position currPosition = positionAndPath.first;
         Path possiblePath = positionAndPath.second;
 
-        if (!InternalUtils::UMatrix::isValid(currPosition, isVisitedMatrix, matrix, *seqIt))
+        if (isVisitedMatrix.value(currPosition))
             continue;
 
         isVisitedMatrix.setValue(currPosition, 1);
@@ -66,14 +66,13 @@ std::vector<Path> Search::BFS(
         bool isStartFromCol)
 {
     std::vector<Path> possiblePaths;
-
     Matrix isVisitedMatrix = InternalUtils::UMatrix::createIsVisitedMatrix(matrix.rowCount(), matrix.columnCount(), endPositionCurrSeq);
     std::queue<std::pair<Position, Path>> queue;
 
     Path currPath({endPositionCurrSeq});
-    queue.push(std::make_pair( endPositionCurrSeq, currPath));
+    queue.push(std::make_pair(endPositionCurrSeq, currPath));
 
-    InternalUtils::UPosition::nextPositionsInColsOrRows(
+    InternalUtils::UPosition::nextPositionsInColOrRow(
                 std::make_pair(endPositionCurrSeq, currPath),
                 startPositionNextSeq,
                 matrix.rowCount(), matrix.columnCount(),
@@ -110,7 +109,7 @@ std::vector<Path> Search::BFS(
         }
 
         isStartFromCol = !(currPosition.row() - possiblePath.positions()[possiblePath.positions().size() - 2].row());
-        InternalUtils::UPosition::nextPositionsInColsOrRows(
+        InternalUtils::UPosition::nextPositionsInColOrRow(
                     positionAndPath,
                     startPositionNextSeq,
                     matrix.rowCount(), matrix.columnCount(),

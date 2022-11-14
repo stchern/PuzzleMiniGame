@@ -7,7 +7,7 @@ void InternalUtils::UPath::combinePurePath(
         const Path& currPath,
         const std::vector<Sequence>& sequences,
         const Matrix& matrix, size_t maxLengthPath, int score,
-        std::vector<bool>& outIsVisitedSequence, std::vector<std::pair<Path, int>>& possiblePathsAndScore)
+        std::vector<bool>& outIsVisitedSequence, std::vector<std::pair<Path, int>>& outPathsAndScore)
 {
     int currScore = score;
 
@@ -18,21 +18,17 @@ void InternalUtils::UPath::combinePurePath(
         int nextScore = sequences[seqIdx].score();
         for (size_t pathIdx = 0; pathIdx < purePaths[seqIdx].size(); ++pathIdx) {
             std::vector<Path> resultPaths;
-            if (isCreatedPathsAfterCurrent(currPath, purePaths[seqIdx][pathIdx], matrix, maxLengthPath, resultPaths)) {
-
+            if (isCreatedPathsAfterCurrent(currPath, purePaths[seqIdx][pathIdx], matrix, maxLengthPath, resultPaths))
                 for (const Path& path: resultPaths) {
-                    possiblePathsAndScore.push_back(std::pair(path, currScore + nextScore));
+                    outPathsAndScore.push_back(std::pair(path, currScore + nextScore));
                     combinePurePath(
                                 purePaths, path,
                                 sequences, matrix,
                                 maxLengthPath, currScore + nextScore,
-                                outIsVisitedSequence, possiblePathsAndScore);
+                                outIsVisitedSequence, outPathsAndScore);
                 }
-            }
         }
-
         outIsVisitedSequence[seqIdx] = false;
-
     }
 
 }
@@ -51,7 +47,7 @@ bool InternalUtils::UPath::isCreatedPathsAfterCurrent(
     size_t overlapLength = 0;
 
     if (InternalUtils::UPath::hasOverlapping(currPath, nextPath, overlapLength)) {
-        Path partOfNextPathForConcatenation(std::vector<Position>(std::begin(nextPath.positions()) + overlapLength, std::end(nextPath.positions())));
+        Path partOfNextPathForConcatenation({std::begin(nextPath.positions()) + overlapLength, std::end(nextPath.positions())});
         if (currPath.length() + partOfNextPathForConcatenation.length() <= maxLengthPath) {
             if (partOfNextPathForConcatenation.length() > 0) {
                 if (currPath.positions()[currPath.positions().size() - 1].row() == partOfNextPathForConcatenation.positions()[0].row() ||
@@ -61,16 +57,13 @@ bool InternalUtils::UPath::isCreatedPathsAfterCurrent(
                 }
             }
             else {
-                    outPaths.push_back(concatenatePaths(currPath, partOfNextPathForConcatenation));
+                    outPaths.push_back(currPath);
                     return true;
                 }
         }
     }
 
-    if (InternalUtils::USequence::isPossibleAddWastedMovesBetweenSequences(currPath, nextPath, matrix, maxLengthPath, outPaths))
-        return true;
-    // PossiblePathesByBFS()
-    return false;
+    return InternalUtils::USequence::isPossibleAddWastedMovesBetweenSequences(currPath, nextPath, matrix, maxLengthPath, outPaths);
 }
 
 
@@ -113,16 +106,13 @@ bool InternalUtils::UPath::hasIntersection(const Path& lhsPath, const Path& rhsP
         return false;
 
     size_t overlapLength;
-    if (hasOverlapping(lhsPath, rhsPath, overlapLength))
-        return false;
-
-    return true;
+    return !hasOverlapping(lhsPath, rhsPath, overlapLength);
 }
 
-Path InternalUtils::UPath::concatenatePaths(const Path& rhsPath, const Path& lhsPath)
+Path InternalUtils::UPath::concatenatePaths(const Path& lhsPath, const Path& rhsPath)
 {
-    std::vector<Position> resultPosition(std::begin(rhsPath.positions()), std::end(rhsPath.positions()));
-    resultPosition.insert(std::end(resultPosition), std::begin(lhsPath.positions()), std::end(lhsPath.positions()));
+    std::vector<Position> resultPosition(std::begin(lhsPath.positions()), std::end(lhsPath.positions()));
+    resultPosition.insert(std::end(resultPosition), std::begin(rhsPath.positions()), std::end(rhsPath.positions()));
     return Path(resultPosition);
 }
 

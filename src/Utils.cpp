@@ -78,26 +78,23 @@ std::vector<std::vector<std::pair<Path, int>>> Utils::combinePurePaths(
 Path Utils::findBestPath(const std::vector<std::vector<std::pair<Path, int>>>& allPaths)
 {
     Path bestPath(std::vector<Position>({}));
-    if (!allPaths.empty()) {
+    int maxScore = -INFINITY;
+    int length = INFINITY;
 
-        int maxScore = -INFINITY;
-        int length = INFINITY;
-
-        for (const std::vector<std::pair<Path, int>>& paths: allPaths) {
-            for (const std::pair<Path, int>& path: paths) {
-                    if (path.second == maxScore && path.first.positions().size() < length) {
-                        maxScore = path.second;
-                        length = path.first.positions().size();
-                        bestPath = path.first;
-                    }
-                    if (path.second > maxScore) {
-                        maxScore = path.second;
-                        length = path.first.positions().size();
-                        bestPath = path.first;
-                    }
+    for (const std::vector<std::pair<Path, int>>& paths: allPaths) {
+        for (const std::pair<Path, int>& path: paths) {
+            if (path.second == maxScore && path.first.positions().size() < length) {
+                maxScore = path.second;
+                length = path.first.positions().size();
+                bestPath = path.first;
+            }
+            if (path.second > maxScore) {
+                maxScore = path.second;
+                length = path.first.positions().size();
+                bestPath = path.first;
             }
         }
     }
-       return bestPath;
+    return bestPath;
 }
 

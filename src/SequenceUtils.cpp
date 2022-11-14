@@ -30,11 +30,10 @@ bool InternalUtils::USequence::isPossibleAddWastedMovesBetweenSequences(const Pa
             intermediatePaths.push_back(possibleIntermediatePath);
     }
 
-    for (const Path& intermediatePath: intermediatePaths)
-        if (sizeFirst + sizeSecond + intermediatePath.positions().size() <= maxLengthPath) {
-            Path resultPath = InternalUtils::UPath::concatenatePaths(lhsPath, intermediatePath);
-            outPaths.push_back(InternalUtils::UPath::concatenatePaths(resultPath, rhsPath));
-        }
+    for (const Path& intermediatePath: intermediatePaths) {
+        Path resultPath = InternalUtils::UPath::concatenatePaths(lhsPath, intermediatePath);
+        outPaths.push_back(InternalUtils::UPath::concatenatePaths(resultPath, rhsPath));
+    }
 
     return !outPaths.empty();
 }
@@ -48,36 +47,21 @@ bool InternalUtils::USequence::isPossibleAddWastedMovesBeforeFirstSequences(cons
 
     if (firstPathPosition.row() == 0) {
         outPaths.push_back(path);
-        if (path.positions().size() > 1) {
-            Position secondPathPosition = path.positions()[1];
-            if (secondPathPosition.column() == firstPathPosition.column())
-                return true;
-            else{
-                // option when 3 wasted moves;
-            }
-        }
         return true;
+        // option when 3 wasted moves is out of the rules;
     }
     else
     {
-        if (path.positions().size() > 1) {
-            Position secondPathPosition = path.positions()[1];
-            bool isStartFromCol = (firstPathPosition.row() - secondPathPosition.row());
-            if (isStartFromCol) {
-                if (path.positions().size() + 2 <= maxLengthPath)
-                    return addTwoWastedMovesBeforeFirstSequence(path, maxColumnCount, outPaths);
-            }
-            else {
-                if (path.positions().size() + 1 <= maxLengthPath)
-                    return addOneWastedMoveBeforeFirstSequence(path, outPaths);
-            }
+        Position secondPathPosition = path.positions()[1];
+        bool isStartFromCol = (firstPathPosition.row() - secondPathPosition.row());
+        if (path.positions().size() > 1 && isStartFromCol) {
+            if (path.positions().size() + 2 <= maxLengthPath)
+                return addTwoWastedMovesBeforeFirstSequence(path, maxColumnCount, outPaths);
         }
-        else {
+        else
             if (path.positions().size() + 1 <= maxLengthPath)
                 return addOneWastedMoveBeforeFirstSequence(path, outPaths);
-        }
     }
-
     return false;
 }
 
@@ -89,7 +73,7 @@ bool InternalUtils::USequence::addOneWastedMoveBeforeFirstSequence(const Path& p
     if (InternalUtils::UPosition::isPositionInPath(path.positions(), possibleFirstPathPosition))
         return false;
 
-    outPaths.push_back(InternalUtils::UPath::concatenatePaths(Path(std::vector<Position>({possibleFirstPathPosition})), path));
+    outPaths.push_back(InternalUtils::UPath::concatenatePaths(Path({possibleFirstPathPosition}), path));
     return true;
 }
 

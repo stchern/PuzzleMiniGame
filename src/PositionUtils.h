@@ -12,7 +12,7 @@ namespace InternalUtils {
 namespace UPosition {
 
 bool isPositionInPath(const std::vector<Position>& pathPositions, const Position& position);
-void nextPositionsInColsOrRows(
+void nextPositionsInColOrRow(
         const std::pair<Position, Path>& startPositionAndPath,
         const Position& positionToFound,
         size_t rowCount, size_t columnCount,

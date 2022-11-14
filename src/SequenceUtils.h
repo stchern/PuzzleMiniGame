@@ -14,8 +14,8 @@ namespace InternalUtils {
 namespace USequence {
 
 bool isPossibleAddWastedMovesBetweenSequences(const Path& rhsPath, const Path& lhsPath, const Matrix& matrix, const size_t maxLengthPath, std::vector<Path>& outPaths);
-bool isPossibleAddWastedMovesBeforeFirstSequences(const Path& path, const int maxColumnCount, const size_t maxLengthPath, std::vector<Path>& outPaths);
 
+bool isPossibleAddWastedMovesBeforeFirstSequences(const Path& path, const int maxColumnCount, const size_t maxLengthPath, std::vector<Path>& outPaths);
 bool addOneWastedMoveBeforeFirstSequence(const Path& path, std::vector<Path>& outPaths);
 bool addTwoWastedMovesBeforeFirstSequence(const Path& path, const int maxColumnCount, std::vector<Path>& outPaths);
 
