@@ -118,17 +118,73 @@ void TestUtils::testfindAllPurePaths02()
 
 void TestUtils::testFindBestPath01()
 {
+    std::vector<std::vector<std::pair<Path, int>>> possiblePathsAndScore {
+        {
+            std::make_pair(Path({Position(0, 0), Position(1, 0), Position(1, 3), Position(2, 3), Position(2, 2), Position(1, 2)}), 10),
+            std::make_pair(Path({Position(0, 0), Position(1, 0), Position(1, 3), Position(2, 3), Position(2, 2), Position(1, 2)}), 15),
+            std::make_pair(Path({Position(0, 0), Position(1, 0), Position(1, 3), Position(2, 3), Position(2, 2), Position(1, 2), Position(1, 1), Position(2, 1), Position(2, 0) }), 15),
+        },
+        {
+            std::make_pair(Path({Position(0, 1), Position(2, 1), Position(2, 0), Position(1, 0), Position(1, 2)}), 10),
+            std::make_pair(Path({Position(0, 1), Position(2, 1), Position(2, 0), Position(1, 0), Position(1, 2)}), 15)
 
+        },
+        {
+             std::make_pair(Path({Position(0, 0), Position(1, 0), Position(1, 3), Position(2, 3)}), 5),
+             std::make_pair(Path({Position(0, 0), Position(1, 0), Position(1, 3), Position(2, 3), Position(2, 2), Position(1, 2)}), 15)
+        },
+        {
+             std::make_pair(Path({Position(0, 1), Position(2, 1), Position(2, 3)}), 5),
+        },
+        {
+            std::make_pair(Path({Position(0, 1), Position(2, 1), Position(2, 0)}), 5),
+            std::make_pair(Path({Position(0, 1), Position(2, 1), Position(2, 0), Position(1, 0), Position(1, 3), Position(2, 3), Position(2, 2), Position(1, 2)}), 15),
+            std::make_pair(Path({Position(0, 1), Position(2, 1), Position(2, 0), Position(1, 0), Position(1, 2)}), 15)
+        },
+    };
+
+    Path resultPath = Utils::findBestPath(possiblePathsAndScore);
+    Path ansResultPath({Position(0, 1), Position(2, 1), Position(2, 0), Position(1, 0), Position(1, 2)});
+
+    QVERIFY(resultPath == ansResultPath);
 }
 
 void TestUtils::testFindBestPath02()
 {
+    std::vector<std::vector<std::pair<Path, int>>> possiblePathsAndScore {
+        {
+            std::make_pair(Path({Position(0, 1), Position(2, 1), Position(2, 0), Position(1, 0)}), 10),
+            std::make_pair(Path({Position(0, 1), Position(2, 1), Position(2, 0), Position(1, 0), Position(1, 3), Position(0, 3), Position(0, 2)}), 11),
+            std::make_pair(Path({Position(0, 1), Position(2, 1), Position(2, 0), Position(1, 0), Position(1, 2), Position(0, 2)}), 11),
+            std::make_pair(Path({Position(0, 1), Position(2, 1), Position(2, 0), Position(1, 0), Position(1, 2), Position(0, 2), Position(0, 3)}), 11),
+            std::make_pair(Path({Position(0, 1), Position(2, 1), Position(2, 0), Position(1, 0), Position(1, 3), Position(0, 3)}), 11),
+        },
+        {
+            std::make_pair(Path({Position(0, 2)}), 1)
+        },
+        {
+            std::make_pair(Path({Position(0, 3)}), 1)
+        }
+    };
 
+    Path resultPath = Utils::findBestPath(possiblePathsAndScore);
+    Path ansResultPath({Position(0, 1), Position(2, 1), Position(2, 0), Position(1, 0), Position(1, 2), Position(0, 2)});
+
+    QVERIFY(resultPath == ansResultPath);
 }
 
 void TestUtils::testFindBestPath03()
 {
+    std::vector<std::vector<std::pair<Path, int>>> possiblePathsAndScore {
+        {},
+        {},
+        {},
+        {},
+        {},
+    };
 
+    Path resultPath = Utils::findBestPath(possiblePathsAndScore);
+    QVERIFY(resultPath.positions().empty());
 }
 
 
@@ -149,6 +205,7 @@ void TestUtils::testCombinePurePaths01()
              Path({Position(2, 1), Position(2, 0), Position(1, 0), Position(1, 2)})
         },
     };
+
     std::vector<std::vector<std::pair<Path, int>>> possiblePathsAndScore = Utils::combinePurePaths(purePaths, matrix, sequences, maxLengthPath);
 
     std::vector<std::vector<std::pair<Path, int>>> ansPossiblePathsAndScore {
@@ -168,7 +225,6 @@ void TestUtils::testCombinePurePaths01()
     };
 
     QVERIFY(isEqualsVectorOfVector(possiblePathsAndScore, ansPossiblePathsAndScore));
-
 }
 
 void TestUtils::testCombinePurePaths02()
