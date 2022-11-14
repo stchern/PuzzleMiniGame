@@ -48,23 +48,27 @@ std::vector<std::vector<std::pair<Path, int>>> Utils::combinePurePaths(
         const size_t maxLengthPath)
 {
     std::vector<bool> isVisitedSequence(purePaths.size(), false);
-    std::vector<std::vector<std::pair<Path, int>>> possiblePathsAndScore(purePaths.size());
+    std::vector<std::vector<std::pair<Path, int>>> possiblePathsAndScore;
+    possiblePathsAndScore.reserve(purePaths.size());
 
     for (size_t currSeqIdx = 0; currSeqIdx < purePaths.size(); ++currSeqIdx) {
         isVisitedSequence[currSeqIdx] = true;
-        std::vector<Path> possiblePathsForCurrSeq(purePaths[currSeqIdx].size());
+
         for (size_t pathIdx = 0; pathIdx < purePaths[currSeqIdx].size(); ++pathIdx) {
             Path currPath;
             if (InternalUtils::USequence::isPossibleAddWastedMovesBeforeFirstSequences(purePaths[currSeqIdx][pathIdx], matrix.columnCount(), maxLengthPath, currPath)) {
                 std::vector<std::pair<Path, int>> possiblePathsForCurrent;
+                possiblePathsForCurrent.push_back(std::make_pair(currPath, sequences[currSeqIdx].score()));
                 InternalUtils::UPath::combinePurePath(
                             purePaths, currPath,
                             sequences, matrix,
                             maxLengthPath, sequences[currSeqIdx].score(),
                             isVisitedSequence, possiblePathsForCurrent);
+
                 possiblePathsAndScore.push_back(possiblePathsForCurrent);
             }
         }
+        isVisitedSequence[currSeqIdx] = false;
     }
 
     return possiblePathsAndScore;
@@ -76,18 +80,21 @@ Path Utils::findBestPath(const std::vector<std::vector<std::pair<Path, int>>>& a
     Path bestPath(std::vector<Position>({}));
     if (!allPaths.empty()) {
 
-        int maxScore = allPaths[0][0].second;
-        int length = allPaths[0][0].first.positions().size();
+        int maxScore = -INFINITY;
+        int length = INFINITY;
 
         for (const std::vector<std::pair<Path, int>>& paths: allPaths) {
             for (const std::pair<Path, int>& path: paths) {
-                if (path.second > maxScore) {
-                    if (path.first.positions().size() < length) {
+                    if (path.second == maxScore && path.first.positions().size() < length) {
                         maxScore = path.second;
                         length = path.first.positions().size();
                         bestPath = path.first;
                     }
-                }
+                    if (path.second > maxScore) {
+                        maxScore = path.second;
+                        length = path.first.positions().size();
+                        bestPath = path.first;
+                    }
             }
         }
     }
