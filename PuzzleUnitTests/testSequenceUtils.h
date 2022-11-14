@@ -14,14 +14,6 @@ public:
 
 private slots:
 
-//    void testHasOverlapping01();
-//    void testHasOverlapping02();
-//    void testHasOverlapping03();
-//    void testHasOverlapping04();
-//    void testHasOverlapping05();
-//    void testHasOverlapping06();
-//    void testHasOverlapping07();
-
     void testAddOneWastedMoveBeforeFirstSequence01();
     void testAddOneWastedMoveBeforeFirstSequence02();
     void testAddOneWastedMoveBeforeFirstSequence03();
@@ -36,6 +28,7 @@ private slots:
     void testIsPossibleAddWastedMovesBeforeFirstSequences03();
     void testIsPossibleAddWastedMovesBeforeFirstSequences04();
     void testIsPossibleAddWastedMovesBeforeFirstSequences05();
+    void testIsPossibleAddWastedMovesBeforeFirstSequences06();
 
     void testIsPossibleAddWastedMovesBetweenSequences01();
     void testIsPossibleAddWastedMovesBetweenSequences02();
@@ -46,6 +39,7 @@ private slots:
     void testIsPossibleAddWastedMovesBetweenSequences07();
     void testIsPossibleAddWastedMovesBetweenSequences08();
     void testIsPossibleAddWastedMovesBetweenSequences09();
+    void testIsPossibleAddWastedMovesBetweenSequences10();
 
 
 };

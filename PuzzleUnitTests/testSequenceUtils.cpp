@@ -4,98 +4,6 @@
 
 using namespace InternalUtils::USequence;
 
-//void TestSequenceUtils::testHasOverlapping01()
-//{
-//    const Sequence rhsSeq(std::vector<unsigned char>({5, 10, 20, 30}), 10);
-//    const Sequence lhsSeq(std::vector<unsigned char>({10, 20, 30}), 10);
-//    size_t overlapLength;
-
-//    bool value = hasOverlapping(rhsSeq, lhsSeq, overlapLength);
-//    size_t ansOverlapLength = 3;
-
-//    QVERIFY(value);
-//    QVERIFY(overlapLength == ansOverlapLength);
-//}
-
-//void TestSequenceUtils::testHasOverlapping02()
-//{
-//    const Sequence rhsSeq(std::vector<unsigned char>({5, 10, 20, 30}), 10);
-//    const Sequence lhsSeq(std::vector<unsigned char>({10, 20}), 10);
-//    size_t overlapLength;
-
-//    bool value = hasOverlapping(rhsSeq, lhsSeq, overlapLength);
-//    size_t ansOverlapLength = 2;
-
-//    QVERIFY(value);
-//    QVERIFY(overlapLength == ansOverlapLength);
-//}
-
-//void TestSequenceUtils::testHasOverlapping03()
-//{
-//    const Sequence rhsSeq(std::vector<unsigned char>({5, 10, 10, 20}), 10);
-//    const Sequence lhsSeq(std::vector<unsigned char>({10, 20, 30}), 10);
-//    size_t overlapLength;
-
-//    bool value = hasOverlapping(rhsSeq, lhsSeq, overlapLength);
-//    size_t ansOverlapLength = 2;
-
-//    QVERIFY(value);
-//    QVERIFY(overlapLength == ansOverlapLength);
-//}
-
-//void TestSequenceUtils::testHasOverlapping04()
-//{
-//    const Sequence rhsSeq(std::vector<unsigned char>({5, 10, 10, 10}), 10);
-//    const Sequence lhsSeq(std::vector<unsigned char>({10, 20, 30}), 10);
-//    size_t overlapLength;
-
-//    bool value = hasOverlapping(rhsSeq, lhsSeq, overlapLength);
-//    size_t ansOverlapLength = 1;
-
-//    QVERIFY(value);
-//    QVERIFY(overlapLength == ansOverlapLength);
-//}
-
-//void TestSequenceUtils::testHasOverlapping05()
-//{
-//    const Sequence rhsSeq(std::vector<unsigned char>({5, 10, 20, 40}), 10);
-//    const Sequence lhsSeq(std::vector<unsigned char>({10, 20, 30}), 10);
-//    size_t overlapLength;
-
-//    bool value = hasOverlapping(rhsSeq, lhsSeq, overlapLength);
-//    size_t ansOverlapLength = 0;
-
-//    QVERIFY(!value);
-//    QVERIFY(overlapLength == ansOverlapLength);
-//}
-
-//void TestSequenceUtils::testHasOverlapping06()
-//{
-//    const Sequence rhsSeq(std::vector<unsigned char>({5, 10, 10, 20}), 10);
-//    const Sequence lhsSeq(std::vector<unsigned char>({5, 20, 30}), 10);
-//    size_t overlapLength;
-
-//    bool value = hasOverlapping(rhsSeq, lhsSeq, overlapLength);
-//    size_t ansOverlapLength = 0;
-
-//    QVERIFY(!value);
-//    QVERIFY(overlapLength == ansOverlapLength);
-//}
-
-
-//void TestSequenceUtils::testHasOverlapping07()
-//{
-//    const Sequence rhsSeq(std::vector<unsigned char>({5, 10, 10, 20}), 10);
-//    const Sequence lhsSeq(std::vector<unsigned char>({6, 40, 30}), 10);
-//    size_t overlapLength;
-
-//    bool value = hasOverlapping(rhsSeq, lhsSeq, overlapLength);
-//    size_t ansOverlapLength = 0;
-
-//    QVERIFY(!value);
-//    QVERIFY(overlapLength == ansOverlapLength);
-//}
-
 
 void TestSequenceUtils::testAddOneWastedMoveBeforeFirstSequence01()
 {
@@ -341,6 +249,30 @@ void TestSequenceUtils::testIsPossibleAddWastedMovesBeforeFirstSequences05()
     QVERIFY(outPath == ansPath);
 }
 
+void TestSequenceUtils::testIsPossibleAddWastedMovesBeforeFirstSequences06() {
+//    const Matrix matrix =
+//    {{
+//        {0x9B, 0x9B, 0x72, 0x9B, 0xD4},
+//        {0x10, 0xD4, 0xD4, 0x9B, 0x10},
+//        {0x72, 0x9B, 0x3A, 0x10, 0x9B},
+//        {0x3A, 0xD4, 0x9B, 0x3A, 0x9B},
+//        {0x72, 0x10, 0x10, 0xD4, 0x10}
+//    }};
+
+    const Path path
+    {
+        {{2, 2}, {2, 3}, {4, 3}, {4, 0}, {2, 0}}
+    };
+
+    const int maxPathLength = 7;
+    const int maxColumnCount = 4;
+    Path outPath;
+    bool value = isPossibleAddWastedMovesBeforeFirstSequences(path, maxColumnCount, maxPathLength, outPath);
+    const Path expectedSolution = {{{0, 2}, {2, 2}, {2, 3}, {4, 3}, {4, 0}, {2, 0}}};
+
+    QVERIFY(value);
+    QVERIFY(outPath == expectedSolution);
+}
 
 void TestSequenceUtils::testIsPossibleAddWastedMovesBetweenSequences01()
 {
@@ -566,7 +498,43 @@ void TestSequenceUtils::testIsPossibleAddWastedMovesBetweenSequences09()
     QVERIFY(outPaths.empty());
 }
 
+void TestSequenceUtils::testIsPossibleAddWastedMovesBetweenSequences10()
+{
+    const Matrix matrix =
+    {{
+        {0x10, 0x10, 0x10, 0x10, 0x10},
+        {0x10, 0x10, 0x10, 0x10, 0x10},
+        {0x3A, 0xD4, 0x10, 0x9B, 0x72},
+        {0x10, 0x10, 0x10, 0x10, 0x10},
+        {0x10, 0x10, 0x10, 0x10, 0x10}
+    }};
 
+    const std::vector<Sequence> sequences =
+    {
+        Sequence({0x3A, 0x9B}, 10),
+        Sequence({0x72, 0xD4}, 10)
+    };
+
+    const int maxPathLength = 7;
+    const Path lhsPath({
+                        Position(0, 0), Position(2, 0), Position(2, 3)
+                       });
+    const Path rhsPath({
+                        Position(2, 4), Position(2, 1)
+                       });
+    std::vector<Path> outPaths;
+
+    bool value = isPossibleAddWastedMovesBetweenSequences(lhsPath, rhsPath, matrix, maxPathLength, outPaths);
+    std::vector<Path> ansPaths = {
+         Path({ {0, 0}, {2, 0}, {2, 3}, {0, 3}, {0, 4}, {2, 4}, {2, 1}}),
+         Path({ {0, 0}, {2, 0}, {2, 3}, {1, 3}, {1, 4}, {2, 4}, {2, 1}}),
+         Path({ {0, 0}, {2, 0}, {2, 3}, {3, 3}, {3, 4}, {2, 4}, {2, 1}}),
+         Path({ {0, 0}, {2, 0}, {2, 3}, {4, 3}, {4, 4}, {2, 4}, {2, 1}}),
+    };
+
+    QVERIFY(value);
+    QVERIFY(UtilsUnitTests::isEqualsVector(outPaths, ansPaths));
+}
 
 
 

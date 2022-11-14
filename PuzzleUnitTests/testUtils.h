@@ -20,6 +20,7 @@ private slots:
 
     void testfindAllPurePaths01();
     void testfindAllPurePaths02();
+    void testfindAllPurePaths03();
 
     void testFindBestPath01();
     void testFindBestPath02();
