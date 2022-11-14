@@ -69,6 +69,7 @@ bool InternalUtils::UPath::isCreatedPathsAfterCurrent(
 
     if (InternalUtils::USequence::isPossibleAddWastedMovesBetweenSequences(currPath, nextPath, matrix, maxLengthPath, outPaths))
         return true;
+    // PossiblePathesByBFS()
     return false;
 }
 
@@ -116,30 +117,6 @@ bool InternalUtils::UPath::hasIntersection(const Path& lhsPath, const Path& rhsP
         return false;
 
     return true;
-//    lhs = lhsPath.positions();
-//    rhs = rhsPath.positions();
-//    std::vector<Position>::iterator rhsInLhs = std::find(std::begin(intersection), std::end(intersection), rhs[0]);
-//    if (rhsInLhs == std::end(intersection))
-//        return true;
-
-//    rhsInLhs = std::find(std::begin(lhs), std::end(lhs), rhs[0]);
-//    std::vector<Position>::iterator trueRhs = std::begin(rhs);
-//    size_t intersectionSize = intersection.size();
-
-//    while (rhsInLhs != std::end(lhs)) {
-//        if (*rhsInLhs == *trueRhs) {
-//            ++rhsInLhs;
-//            ++trueRhs;
-//            --intersectionSize;
-//        }
-//        else {
-//            if (trueRhs == std::end(rhs))
-//                return false;
-//            return true;
-//        }
-//    }
-
-//    return intersectionSize;
 }
 
 Path InternalUtils::UPath::concatenatePaths(const Path& rhsPath, const Path& lhsPath)

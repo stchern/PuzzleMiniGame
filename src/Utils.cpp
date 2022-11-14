@@ -7,19 +7,18 @@
 
 using namespace InternalUtils;
 
-std::vector<std::vector<Position>> Utils::adjacencyMatrix(const Matrix& matrix, const std::vector<Sequence>& sequences)
+std::vector<std::vector<Position>> Utils::beginningSequencesList(const Matrix& matrix, const std::vector<Sequence>& sequences)
 {
-    std::vector<std::vector<Position>> adjancetyMatrix(sequences.size());
-
+    std::vector<std::vector<Position>> beginningSequencesList(sequences.size());
     for (size_t seqIdx = 0; seqIdx < sequences.size(); ++seqIdx)
         for (size_t row = 0; row < matrix.rowCount(); ++row) {
             std::vector<Position> startPositionsForSequence;
             if (InternalUtils::UMatrix::isFoundInRow(matrix, Position(row, -1), sequences[seqIdx].codes()[0], startPositionsForSequence))
                 for (const Position& pos: startPositionsForSequence)
-                    adjancetyMatrix[seqIdx].push_back(pos);
+                    beginningSequencesList[seqIdx].push_back(pos);
         }
 
-    return adjancetyMatrix;
+    return beginningSequencesList;
 }
 
 std::vector<std::vector<Path>> Utils::findAllPurePaths(
@@ -55,16 +54,17 @@ std::vector<std::vector<std::pair<Path, int>>> Utils::combinePurePaths(
         isVisitedSequence[currSeqIdx] = true;
 
         for (size_t pathIdx = 0; pathIdx < purePaths[currSeqIdx].size(); ++pathIdx) {
-            Path currPath;
-            if (InternalUtils::USequence::isPossibleAddWastedMovesBeforeFirstSequences(purePaths[currSeqIdx][pathIdx], matrix.columnCount(), maxLengthPath, currPath)) {
+            std::vector<Path> currPaths;
+            if (InternalUtils::USequence::isPossibleAddWastedMovesBeforeFirstSequences(purePaths[currSeqIdx][pathIdx], matrix.columnCount(), maxLengthPath, currPaths)) {
                 std::vector<std::pair<Path, int>> possiblePathsForCurrent;
-                possiblePathsForCurrent.push_back(std::make_pair(currPath, sequences[currSeqIdx].score()));
-                InternalUtils::UPath::combinePurePath(
-                            purePaths, currPath,
-                            sequences, matrix,
-                            maxLengthPath, sequences[currSeqIdx].score(),
-                            isVisitedSequence, possiblePathsForCurrent);
-
+                for (const Path& currPath: currPaths) {
+                    possiblePathsForCurrent.push_back(std::make_pair(currPath, sequences[currSeqIdx].score()));
+                    InternalUtils::UPath::combinePurePath(
+                                purePaths, currPath,
+                                sequences, matrix,
+                                maxLengthPath, sequences[currSeqIdx].score(),
+                                isVisitedSequence, possiblePathsForCurrent);
+                }
                 possiblePathsAndScore.push_back(possiblePathsForCurrent);
             }
         }

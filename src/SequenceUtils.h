@@ -14,11 +14,10 @@ namespace InternalUtils {
 namespace USequence {
 
 bool isPossibleAddWastedMovesBetweenSequences(const Path& rhsPath, const Path& lhsPath, const Matrix& matrix, const size_t maxLengthPath, std::vector<Path>& outPaths);
-bool isPossibleAddWastedMovesBeforeFirstSequences(const Path& path, const int maxColumnCount, const size_t maxLengthPath, Path& outPath);
+bool isPossibleAddWastedMovesBeforeFirstSequences(const Path& path, const int maxColumnCount, const size_t maxLengthPath, std::vector<Path>& outPaths);
 
-bool addOneWastedMoveBeforeFirstSequence(const Path& path, Path& outPath);
-bool addTwoWastedMovesBeforeFirstSequence(const Path& path, const int maxColumnCount, Path& outPath);
-//bool hasOverlapping(const Sequence& rhsSeq, const Sequence& lhsSeq, size_t& overlapLength);
+bool addOneWastedMoveBeforeFirstSequence(const Path& path, std::vector<Path>& outPaths);
+bool addTwoWastedMovesBeforeFirstSequence(const Path& path, const int maxColumnCount, std::vector<Path>& outPaths);
 
 }
 }

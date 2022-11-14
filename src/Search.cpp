@@ -73,7 +73,11 @@ std::vector<Path> Search::BFS(
     Path currPath({endPositionCurrSeq});
     queue.push(std::make_pair( endPositionCurrSeq, currPath));
 
-    InternalUtils::UPosition::nextPositionsInColsOrRows(matrix, std::make_pair(endPositionCurrSeq, currPath), startPositionNextSeq, queue, isStartFromCol);
+    InternalUtils::UPosition::nextPositionsInColsOrRows(
+                std::make_pair(endPositionCurrSeq, currPath),
+                startPositionNextSeq,
+                matrix.rowCount(), matrix.columnCount(),
+                queue, isStartFromCol);
     queue.pop();
 
     while (!queue.empty()) {
@@ -106,7 +110,11 @@ std::vector<Path> Search::BFS(
         }
 
         isStartFromCol = !(currPosition.row() - possiblePath.positions()[possiblePath.positions().size() - 2].row());
-        InternalUtils::UPosition::nextPositionsInColsOrRows(matrix, positionAndPath, startPositionNextSeq, queue, isStartFromCol);
+        InternalUtils::UPosition::nextPositionsInColsOrRows(
+                    positionAndPath,
+                    startPositionNextSeq,
+                    matrix.rowCount(), matrix.columnCount(),
+                    queue, isStartFromCol);
     }
 
     return possiblePaths;
