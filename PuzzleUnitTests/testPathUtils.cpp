@@ -410,6 +410,23 @@ void TestPathUtils::testHasIntersection08()
     QVERIFY(value);
 }
 
+void TestPathUtils::testHasIntersection09()
+{
+    const Path lhsPath({
+                    Path({Position(0, 1), Position(2, 1), Position(2, 0), Position(1, 0), Position(1, 2)})
+                   });
+    const Path rhsPath({
+                    Path({Position(0, 1), Position(2, 1), Position(2, 0), Position(1, 0)})
+                   });
+    size_t overlapLength;
+    bool valueOverlapping = hasOverlapping(lhsPath, rhsPath, overlapLength);
+    bool value = hasIntersection(lhsPath, rhsPath);
+
+    QVERIFY(!value);
+    QVERIFY(valueOverlapping);
+}
+
+
 void TestPathUtils::testHasOverlapping01()
 {
     const Path rhsPath({
